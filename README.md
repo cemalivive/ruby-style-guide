@@ -88,96 +88,76 @@ Translations of the guide are available in the following languages:
 > probably right... <br/>
 > -- Jerry Coffin (on indentation)
 
-* Use `UTF-8` as the source file encoding.
-* Use two **spaces** per indentation level. No hard tabs.
+* Kodlamada `UTF-8` kullanılmalı.
+* Girinti başına **2 boşluk** kullanılmadı. Sekmeler (tab) 2 boşluk ayarlanarak kullanılmamalı.
+* Unix tarzı satır sonlandırma kullanılmalı. (*BSD/Solaris/Linux/OSX gibi sistemlerde varsayılan olarak gelir,
+   ancak Windows kullanıcıları bu konuda daha dikkatli olmalıdırlar.)
+* İfadeleri birbrinden ayırmak için `;` kullanmayın. Sonuç olarak satır başına bir ifade kullanın.
 
     ```Ruby
-    # bad - four spaces
-    def some_method
-        do_something
-    end
+    # kotu kodlama
+    puts 'foobar'; # noktalı virgul gereksiz
 
-    # good
-    def some_method
-      do_something
-    end
-    ```
+    puts 'foo'; puts 'bar' # ayni satirda 2 ifade var
 
-* Use Unix-style line endings. (*BSD/Solaris/Linux/OSX users are covered by default,
-  Windows users have to be extra careful.)
-    * If you're using Git you might want to add the following
-    configuration setting to protect your project from Windows line
-    endings creeping in:
-
-        $ git config --global core.autocrlf true
-
-* Don't use `;` to separate statements and expressions. As a
-  corollary - use one expression per line.
-
-    ```Ruby
-    # bad
-    puts 'foobar'; # superfluous semicolon
-
-    puts 'foo'; puts 'bar' # two expression on the same line
-
-    # good
+    # iyi kodlama
     puts 'foobar'
 
     puts 'foo'
     puts 'bar'
 
-    puts 'foo', 'bar' # this applies to puts in particular
+    puts 'foo', 'bar' # bu bicim ozellikle puts ifadesinde kullanilir
     ```
-
-* Prefer a single-line format for class definitions with no body.
+*Gövdesiz sınıf tanımlaması için tek satırlık tanımlamaları tercih edilmeli
 
     ```Ruby
-    # bad
+    # kotu
     class FooError < StandardError
     end
 
-    # okish
+    # kabul edilebilir
     class FooError < StandardError; end
 
-    # good
+    # iyi
     FooError = Class.new(StandardError)
     ```
 
+* Tek satırlık method tanımlamaları yapılmamalı. Bununla
 * Avoid single-line methods. Although they are somewhat popular in the
   wild, there are a few peculiarities about their definition syntax
   that make their use undesirable. At any rate - there should no more
   than one expression in a single-line method.
 
     ```Ruby
-    # bad
+    # kotu
     def too_much; something; something_else; end
 
-    # okish - notice that the first ; is required
+    # kabul edilebilir
     def no_braces_method; body end
 
-    # okish - notice that the second ; is optional
+    # kabul edilebilir
     def no_braces_method; body; end
 
-    # okish - valid syntax, but no ; make it kind of hard to read
+    # kabul edilebilir
     def some_method() body end
 
-    # good
+    # iyi
     def some_method
       body
     end
     ```
 
-    One exception to the rule are empty-body methods.
+   Bu kurala istisna olarak gövdesiz bir method örneği:
 
     ```Ruby
-    # good
+    # iyi
     def no_op; end
     ```
 
-* Use spaces around operators, after commas, colons and semicolons, around `{`
-  and before `}`. Whitespace might be (mostly) irrelevant to the Ruby
-  interpreter, but its proper use is the key to writing easily
-  readable code.
+* İşleçler (operatorler) arasında boşluk kullanılmalı, sonrasında virgüller,
+  iki nokta üst üste ve noktalı virgüller, çevresinde { ve } olmalı. Boşluklar Ruby
+  yorumlayıcısı için oldukça gereksiz olabilir, fakat yorumlayıcının bu uygunluğu
+  okunurluğu ve yazılabilirliği artırır.
 
     ```Ruby
     sum = 1 + 2
@@ -185,60 +165,44 @@ Translations of the guide are available in the following languages:
     1 > 2 ? true : false; puts 'Hi'
     [1, 2, 3].each { |e| puts e }
     ```
-
-    The only exception, regarding operators, is the exponent operator:
+    Buna ilişkin operatorlere tek istina üst alma operatorüdür.
 
     ```Ruby
-    # bad
+    # kotu
     e = M * c ** 2
 
-    # good
+    # iyi
     e = M * c**2
     ```
 
-    `{` and `}` deserve a bit of clarification, since they are used
-    for block and hash literals, as well as embedded expressions in
-    strings. For hash literals two styles are considered acceptable.
+    `{` ve `}` kullanımında hash tanımlamaları için boşluklar asağıdaki gibi olabilir:
 
     ```Ruby
-    # good - space after { and before }
+    # iyi -  { sonrasinda bosluk ve } oncesinde bosluk
     { one: 1, two: 2 }
 
-    # good - no space after { and before }
+    # good - { sonrasın ve } oncesinde bosluk yok
     {one: 1, two: 2}
     ```
 
-    The first variant is slightly more readable (and arguably more
-    popular in the Ruby community in general). The second variant has
-    the advantage of adding visual difference between block and hash
-    literals. Whichever one you pick - apply it consistently.
-
-    As far as embedded expressions go, there are also two acceptable
-    options:
+  Gömülü ifadeler için iki tür kabul edilebilir seçenek vardır:
 
     ```Ruby
-    # good - no spaces
+    # iyi - bosluk yok
     "string#{expr}"
 
-    # ok - arguably more readable
+    # kullanilabilir - muhtemelen daha okunabilir
     "string#{ expr }"
     ```
 
-    The first style is extremely more popular and you're generally
-    advised to stick with it. The second, on the other hand, is
-    (arguably) a bit more readable. As with hashes - pick one style
-    and apply it consistently.
-
-* No spaces after `(`, `[` or before `]`, `)`.
+* `(`, `[`  karakterlerinden sonra ya da  `]`, `)` karakterlerinden önce boşluk yok.
 
     ```Ruby
     some(arg).other
     [1, 2, 3].length
     ```
-
-* Indent `when` as deep as `case`. I know that many would disagree
-  with this one, but it's the style established in both "The Ruby
-  Programming Language" and "Programming Ruby".
+* `when` ifadesinin girintisi aşağıdaki gibi olmalı. Genelde bu konuda çok anlaşma yok ancak "The Ruby
+   Programming Language" ve "Programming Ruby" belgelerinde böyle kullanılmış.
 
     ```Ruby
     case
@@ -260,11 +224,8 @@ Translations of the guide are available in the following languages:
            when 1940..1950 then 'Bebop'
            else 'Jazz'
            end
-    ```
 
-* Use empty lines between `def`s and to break up a method into logical
-  paragraphs.
-
+* `def` tanımlamaları arasında boşluk bırakılmalı ve method içinde mantıksal paragraflara ayırılmalı.
     ```Ruby
     def some_method
       data = initialize(options)
@@ -279,25 +240,23 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* Use spaces around the `=` operator when assigning default values to method parameters:
-
+* Methodlardaki parametrelere varsayılan değerler atanırken `=` operatorü çevresinde boşluk bırakılmalı.
     ```Ruby
-    # bad
+    # kotu
     def some_method(arg1=:default, arg2=nil, arg3=[])
       # do something...
     end
 
-    # good
+    # iyi
     def some_method(arg1 = :default, arg2 = nil, arg3 = [])
       # do something...
     end
     ```
-
-    While several Ruby books suggest the first style, the second is much more prominent
-    in practice (and arguably a bit more readable).
+    Bir kaç Ruby kitabında ilk biçim önerilirken, ikinci biçim okunabilirlik bakımından daha çok tercih edilebilir.
 
 * Avoid line continuation `\` where not required. In practice, avoid using
   line continuations at all.
+* Devam satırı gerekli değilse kullanımı önlenmeli. Örnekte, hepsinde devam satırı kullanarak önle. ?
 
     ```Ruby
     # bad
@@ -310,26 +269,29 @@ Translations of the guide are available in the following languages:
     ```
 
 * When continuing a chained method invocation on another line keep the `.` on the second line.
+* Zincirlenmiş method çağırımı devam ederken bir başka satırda `.` ikinci satırda korur. ?
 
     ```Ruby
-    # bad - need to consult first line to understand second line
+    # kotu - need to consult first line to understand second line
+    # kotu - ikinci satırı anlamak için ilk satırı danışmaya gerek duyulu
     one.two.three.
       four
 
     # good - it's immediately clear what's going on the second line
+    # iyi- bu sekilde ikinci satırda ne yapildigi hemen aciklanir
     one.two.three
       .four
     ```
 
-* Align the parameters of a method call if they span more than one line.
+* Eğer aralıklar fazlaysa bir satırda, methodun tüm parametreleri hizalanmalı.
 
     ```Ruby
-    # starting point (line is too long)
+    # baslama noktasi (satir cok uzun)
     def send_mail(source)
       Mailer.deliver(to: 'bob@example.com', from: 'us@example.com', subject: 'Important message', body: source.text)
     end
 
-    # bad (normal indent)
+    # kotu (noral girinti)
     def send_mail(source)
       Mailer.deliver(
         to: 'bob@example.com',
@@ -338,7 +300,7 @@ Translations of the guide are available in the following languages:
         body: source.text)
     end
 
-    # bad (double indent)
+    # kotu (cift girinti)
     def send_mail(source)
       Mailer.deliver(
           to: 'bob@example.com',
@@ -347,7 +309,7 @@ Translations of the guide are available in the following languages:
           body: source.text)
     end
 
-    # good
+    # iyi
     def send_mail(source)
       Mailer.deliver(to: 'bob@example.com',
                      from: 'us@example.com',
@@ -356,46 +318,47 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* Add underscores to large numeric literals to improve their readability.
+* Büyük sayısal ifadelerin okunabilirliği için lt çizgi eklenmeli.
 
     ```Ruby
-    # bad - how many 0s are there?
+    # kotu - kac sifir oldugunu anlamak zor
     num = 1000000
 
-    # good - much easier to parse for the human brain
+    # iyi - insan beyni icin bu ifadeyi okumak daha kolay
     num = 1_000_000
     ```
 
-* Use RDoc and its conventions for API documentation.  Don't put an
-  empty line between the comment block and the `def`.
-* Limit lines to 80 characters.
-* Avoid trailing whitespace.
-* Don't use block comments. They cannot be preceded by whitespace and are not
-as easy to spot as regular comments.
+* Uygulama dökümanı için RDoc kullanılmalı. Yorum satırları ve `def`
+   arasına boş satır koyma.
+* Satir sınıırı 80 karakterdir.
+* Gereksiz boşlukların oluşmasını engelle.
+* Blok şeklindeki yorum satirlarini kullanılmamalı.
 
     ```Ruby
-    # bad
+    #kotu
     == begin
     comment line
     another comment line
     == end
 
-    # good
+    #iyi
     # comment line
     # another comment line
     ```
 
-## Syntax
+## Söz Dizimi
 
 * Use `::` only to reference constants(this includes classes and
 modules). Never use `::` for method invocation.
+* `::` ifadesi sadece sabitlere başvurularda kullanılmalı (bu durum sınıfları
+  ve modülleri içerir). Method çağırımları için asla `::` kullanma.
 
     ```Ruby
-    # bad
+    # kotu
     SomeClass::some_method
     some_object::some_method
 
-    # good
+    # iyi
     SomeClass.some_method
     some_object.some_method
     SomeModule::SomeClass::SOME_CONST
