@@ -89,7 +89,7 @@ Translations of the guide are available in the following languages:
 > -- Jerry Coffin (on indentation)
 
 * Kodlamada `UTF-8` kullanılmalı.
-* Girinti başına **2 boşluk** kullanılmadı. Sekmeler (tab) 2 boşluk ayarlanarak kullanılmamalı.
+* Girinti başına **2 boşluk** kullanılmalı ancak bu durum sekmeler (tab) 2 boşluk ayarlanarak kullanılmamalı.
 * Unix tarzı satır sonlandırma kullanılmalı. (*BSD/Solaris/Linux/OSX gibi sistemlerde varsayılan olarak gelir,
    ancak Windows kullanıcıları bu konuda daha dikkatli olmalıdırlar.)
 * İfadeleri birbrinden ayırmak için `;` kullanmayın. Sonuç olarak satır başına bir ifade kullanın.
@@ -108,7 +108,7 @@ Translations of the guide are available in the following languages:
 
     puts 'foo', 'bar' # bu bicim ozellikle puts ifadesinde kullanilir
     ```
-*Gövdesiz sınıf tanımlaması için tek satırlık tanımlamaları tercih edilmeli
+* Gövdesiz sınıf tanımlaması için tek satırlık tanımlamaları tercih edilmeli.
 
     ```Ruby
     # kotu
@@ -122,11 +122,7 @@ Translations of the guide are available in the following languages:
     FooError = Class.new(StandardError)
     ```
 
-* Tek satırlık method tanımlamaları yapılmamalı. Bununla
-* Avoid single-line methods. Although they are somewhat popular in the
-  wild, there are a few peculiarities about their definition syntax
-  that make their use undesirable. At any rate - there should no more
-  than one expression in a single-line method.
+* Tek satırlık method tanımlamaları yapılmamalı.
 
     ```Ruby
     # kotu
@@ -195,7 +191,7 @@ Translations of the guide are available in the following languages:
     "string#{ expr }"
     ```
 
-* `(`, `[`  karakterlerinden sonra ya da  `]`, `)` karakterlerinden önce boşluk yok.
+* `(`, `[`  karakterlerinden sonra ya da  `]`, `)` karakterlerinden önce boşluk olmamalıdır.
 
     ```Ruby
     some(arg).other
@@ -256,7 +252,8 @@ Translations of the guide are available in the following languages:
 
 * Avoid line continuation `\` where not required. In practice, avoid using
   line continuations at all.
-* Devam satırı gerekli değilse kullanımı önlenmeli. Örnekte, hepsinde devam satırı kullanarak önle. ?
+* Satır devam etmesi gerekli olmayan yerde `\` ile önlenir. Aşağıdaki örneklerin 
+  hepsinde `\` kullanılarak önlenmiştir.
 
     ```Ruby
     # bad
@@ -268,8 +265,7 @@ Translations of the guide are available in the following languages:
              - 2
     ```
 
-* When continuing a chained method invocation on another line keep the `.` on the second line.
-* Zincirlenmiş method çağırımı devam ederken bir başka satırda `.` ikinci satırda korur. ?
+* Zincirlenmiş method çağırımı devam ederken bir başka satırdaki `.` ikinci satırı korur. 
 
     ```Ruby
     # kotu - need to consult first line to understand second line
@@ -318,7 +314,7 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* Büyük sayısal ifadelerin okunabilirliği için lt çizgi eklenmeli.
+* Büyük sayısal ifadelerin okunabilirliği için alt çizgi eklenmeli.
 
     ```Ruby
     # kotu - kac sifir oldugunu anlamak zor
@@ -329,10 +325,10 @@ Translations of the guide are available in the following languages:
     ```
 
 * Uygulama dökümanı için RDoc kullanılmalı. Yorum satırları ve `def`
-   arasına boş satır koyma.
+   arasına boş satır koyulmamalı.
 * Satir sınıırı 80 karakterdir.
-* Gereksiz boşlukların oluşmasını engelle.
-* Blok şeklindeki yorum satirlarini kullanılmamalı.
+* Gereksiz boşlukların oluşması engellenmeli.
+* Blok şeklindeki yorum satırları kullanılmamalı.
 
     ```Ruby
     #kotu
