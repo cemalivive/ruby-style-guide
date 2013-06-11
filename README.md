@@ -344,10 +344,8 @@ Translations of the guide are available in the following languages:
 
 ## Söz Dizimi
 
-* Use `::` only to reference constants(this includes classes and
-modules). Never use `::` for method invocation.
 * `::` ifadesi sadece sabitlere başvurularda kullanılmalı (bu durum sınıfları
-  ve modülleri içerir). Method çağırımları için asla `::` kullanma.
+  ve modülleri içerir). Method çağırımları için asla `::` kullanılmamalı.
 
     ```Ruby
     # kotu
@@ -360,64 +358,61 @@ modules). Never use `::` for method invocation.
     SomeModule::SomeClass::SOME_CONST
     ```
 
-* Use `def` with parentheses when there are arguments. Omit the
-  parentheses when the method doesn't accept any arguments.
+* `def` parametreler varsa parantezlerle birlikte kullanılmalı. Methodda parametreler yoksa 
+  parantez kullanımını atlayabilirsiniz.
 
      ```Ruby
-     # bad
+     # kotu
      def some_method()
        # body omitted
      end
 
-     # good
+     # iyi
      def some_method
        # body omitted
      end
 
-     # bad
+     # kotu
      def some_method_with_arguments arg1, arg2
        # body omitted
      end
 
-     # good
+     # iyi
      def some_method_with_arguments(arg1, arg2)
        # body omitted
      end
      ```
 
-* Never use `for`, unless you know exactly why. Most of the time iterators
-  should be used instead. `for` is implemented in terms of `each` (so
-  you're adding a level of indirection), but with a twist - `for`
-  doesn't introduce a new scope (unlike `each`) and variables defined
-  in its block will be visible outside it.
+* Tam olarak neden olduğunu bilmeden `for` yapısı kullanımamalı. Pek çok kez iteratorler yerine kullanılır.
+  `for`  yapısı `each` ile sağlanmıştır.
 
     ```Ruby
     arr = [1, 2, 3]
 
-    # bad
+    # kotu
     for elem in arr do
       puts elem
     end
 
-    # good
+    # iyi
     arr.each { |elem| puts elem }
     ```
 
-* Never use `then` for multi-line `if/unless`.
+* Çok satırlı `if/unless` için `then` hiç kullanılmamalı.
 
     ```Ruby
-    # bad
+    # kotu
     if some_condition then
       # body omitted
     end
 
-    # good
+    # iyi
     if some_condition
       # body omitted
     end
     ```
 
-* Always put the condition on the same line as the `if`/`unless` in a multi-line conditional.
+* Genellikle kontrol edilecek durum `if`/`unless` ile aynı satırda bulunur.
 
     ```Ruby
     # bad
@@ -434,26 +429,25 @@ modules). Never use `::` for method invocation.
     end
     ```
 
-* Favor the ternary operator(`?:`) over `if/then/else/end` constructs.
-  It's more common and obviously more concise.
+* `if/then/else/end` yerine  üçlü operatorler(`?:`) daha iyidir.
 
     ```Ruby
-    # bad
+    # kotu
     result = if some_condition then something else something_else end
 
-    # good
+    # iyi
     result = some_condition ? something : something_else
     ```
 
-* Use one expression per branch in a ternary operator. This
-  also means that ternary operators must not be nested. Prefer
-  `if/else` constructs in these cases.
+* Üçlü operatorde dal başına bir ifade kullanılmalı. Bu aynı zamanda üçlü operatorün 
+  iç içe olmaması gerektiği anlamına gelir. Bu gibi durumlarda `if/else` yapıcıları tercih edilir.
+
 
     ```Ruby
-    # bad
+    # kotu
     some_condition ? (nested_condition ? nested_something : nested_something_else) : something_else
 
-    # good
+    # iyi
     if some_condition
       nested_condition ? nested_something : nested_something_else
     else
@@ -461,61 +455,61 @@ modules). Never use `::` for method invocation.
     end
     ```
 
-* Never use `if x: ...` - as of Ruby 1.9 it has been removed. Use
-  the ternary operator instead.
+* `if x: ...` yapısını kullanmayın (Ruby 1.9 da kaldırıldı). Bunun yerine üçlü
+  operatör kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     result = if some_condition: something else something_else end
 
-    # good
+    # iyi
     result = some_condition ? something : something_else
     ```
 
-* Never use `if x; ...`. Use the ternary operator instead.
+* `if x; ...` kullanmayın. Bunun yerine üçlü operatör kullanın.
 
-* Use `when x then ...` for one-line cases. The alternative syntax
-  `when x: ...` has been removed as of Ruby 1.9.
+* Tek satırdan oluşan durumlar için `when x: ...` kullanın. 
+  Buna alternatif yazım olan `when x: ...` Ruby 1.9'da kaldırıldı.
 
-* Never use `when x; ...`. See the previous rule.
+* `when x; ...` yapısını kullanmayın. Bunun yerine bir önceki kuralda belirtildiği gibi kullanın.
 
-* Use `!` instead of `not`.
+* `not` yerine `!` kullanın.
 
     ```Ruby
-    # bad - braces are required because of op precedence
+    # kotu 
     x = (not something)
 
-    # good
+    # iyi
     x = !something
     ```
-
-* The `and` and `or` keywords are banned. It's just not worth
-  it. Always use `&&` and `||` instead.
+* `and` ve `or` ifadeleri yasaklandı.  Bunların yerine hep `&&` ve `||` kullanın.
 
     ```Ruby
-    # bad
-    # boolean expression
+    # kotu
+    # mantiksal ifadeler
     if some_condition and some_other_condition
       do_something
     end
 
-    # control flow
+    # akis kontrolu
     document.saved? or document.save!
 
-    # good
-    # boolean expression
+    # iyi
+    # mantiksal ifadeler
     if some_condition && some_other_condition
       do_something
     end
 
-    # control flow
+    # akis kontrolu
     document.saved? || document.save!
     ```
 
-* Avoid multi-line `?:` (the ternary operator); use `if/unless` instead.
+* Cok satırdan oluşan ifadelerde `?:` (üçlü operatör) kullanımını önleyin. 
+  `if/unless` yapısı kullanın bunların yerine.
 
-* Favor modifier `if/unless` usage when you have a single-line
-  body. Another good alternative is the usage of control flow `&&/||`.
+
+* Tek satırdan oluşan `if/unless` ifadesi olduğunda bu ifadeyi değiştirin.
+  İyi bir olarak alternatif olarak `&&/||` akış kontrollerinin kullanılmasıdır.
 
     ```Ruby
     # bad
@@ -530,88 +524,86 @@ modules). Never use `::` for method invocation.
     some_condition && do_something
     ```
 
-* Favor `unless` over `if` for negative conditions (or control
-  flow `||`).
+* `unless` kullanımı negatif durum kontrollerinde `if` ifadesinden daha iyidir (ya da akış 
+  kontrol ifadeleri de kullanılabilir `||`)
 
     ```Ruby
-    # bad
+    # kotu
     do_something if !some_condition
 
-    # bad
+    # kotu
     do_something if not some_condition
 
-    # good
+    # iyi
     do_something unless some_condition
 
-    # another good option
+    # diger iyi secenek
     some_condition || do_something
     ```
 
-* Never use `unless` with `else`. Rewrite these with the positive case first.
+* `else` ifadesini `unless` ile birlikte kullanmayın. 
 
     ```Ruby
-    # bad
+    # kotu
     unless success?
       puts 'failure'
     else
       puts 'success'
     end
 
-    # good
+    # iyi
     if success?
       puts 'success'
     else
       puts 'failure'
     end
     ```
-
-* Don't use parentheses around the condition of an `if/unless/while/until`.
+* `if/unless/while/until` ifadelerinde parantezler kullanmayın.
 
     ```Ruby
-    # bad
+    # kotu
     if (x > 10)
       # body omitted
     end
 
-    # good
+    # iyi
     if x > 10
       # body omitted
     end
     ```
 
-* Favor modifier `while/until` usage when you have a single-line
-  body.
+* Tek satırdan oluşan bir gövde varsa, `while/until` kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     while some_condition
       do_something
     end
 
-    # good
+    # iyi
     do_something while some_condition
     ```
 
-* Favor `until` over `while` for negative conditions.
+* Negatif koşul ifadelerinde `while` yerine `until` kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     do_something while !some_condition
 
-    # good
+    # iyi
     do_something until some_condition
     ```
 
-* Use `Kernel#loop` with break rather than `begin/end/until` or `begin/end/while` for post-loop tests.
+* `begin/end/until` ya da  `begin/end/while` kullanmak yerine döngü sonrasında yapılan testler için `Kernel#loop` ifadesini kullanın.
 
    ```Ruby
-   # bad
+   # kotu
    begin
      puts val
      val += 1
    end while val < 0
 
-   # good
+   # iyi
    loop do
      puts val
      val += 1
@@ -619,11 +611,7 @@ modules). Never use `::` for method invocation.
    end
    ```
 
-* Omit parentheses around parameters for methods that are part of an
-  internal DSL (e.g. Rake, Rails, RSpec), methods that have
-  "keyword" status in Ruby (e.g. `attr_reader`, `puts`) and attribute
-  access methods. Use parentheses around the arguments of all other
-  method invocations.
+* Parametresi olan tüm method çağırımlarında parantezler kullanın. Özelliklere erişirken de parantez kullanımını atlayın.
 
     ```Ruby
     class Person
@@ -643,70 +631,63 @@ modules). Never use `::` for method invocation.
     bowling.score.should == 0
     ```
 
-* Omit parentheses for method calls with no arguments.
+* Parametresiz olan tüm method çağırımlarında parantezleri atlayın.
 
     ```Ruby
-    # bad
+    # kotu
     Kernel.exit!()
     2.even?()
     fork()
     'test'.upcase()
 
-    # good
+    # iyi
     Kernel.exit!
     2.even?
     fork
     'test'.upcase
     ```
 
-* Prefer `{...}` over `do...end` for single-line blocks.  Avoid using
-  `{...}` for multi-line blocks (multiline chaining is always
-  ugly). Always use `do...end` for "control flow" and "method
-  definitions" (e.g. in Rakefiles and certain DSLs).  Avoid `do...end`
-  when chaining.
+* Tek satırdan oluşan bloklarda `do...end` yerine `{...}` kullanın. Çok satırdan 
+  oluşan döngülerde de `{...}` kullanmayın. 
 
     ```Ruby
     names = ['Bozhidar', 'Steve', 'Sarah']
 
-    # bad
+    # kotu
     names.each do |name|
       puts name
     end
 
-    # good
+    # iyi
     names.each { |name| puts name }
 
-    # bad
+    # kotu
     names.select do |name|
       name.start_with?('S')
     end.map { |name| name.upcase }
 
-    # good
+    # iyi
     names.select { |name| name.start_with?('S') }.map { |name| name.upcase }
     ```
 
-    Some will argue that multiline chaining would look OK with the use of {...}, but they should
-    ask themselves - is this code really readable and can the blocks' contents be extracted into
-    nifty methods?
-
-* Avoid `return` where not required for flow of control.
+* Gerekli değilse `return` kullanmayın.
 
     ```Ruby
-    # bad
+    # kotu
     def some_method(some_arr)
       return some_arr.size
     end
 
-    # good
+    # iyi
     def some_method(some_arr)
       some_arr.size
     end
     ```
 
-* Avoid `self` where not required. (It is only required when calling a self write accessor.)
+* `self` gerekli değilse kullanmayın. (`self` sadece kendi tanımladığımız erişimciler (accessor) için gereklidir.)
 
     ```Ruby
-    # bad
+    # kotu
     def ready?
       if self.last_reviewed_at > self.last_updated_at
         self.worker.update(self.content, self.options)
@@ -715,7 +696,7 @@ modules). Never use `::` for method invocation.
       self.status == :verified
     end
 
-    # good
+    # iyi
     def ready?
       if last_reviewed_at > last_updated_at
         worker.update(content, options)
@@ -725,7 +706,7 @@ modules). Never use `::` for method invocation.
     end
     ```
 
-* As a corollary, avoid shadowing methods with local variables unless they are both equivalent.
+* Sonuç olarak, her ikiside eşit olmadıkça yerel değişkenlerle methodları gölgelemekten kaçının.
 
     ```Ruby
     class Foo
@@ -752,8 +733,7 @@ modules). Never use `::` for method invocation.
       end
     end
     ```
-
-* Don't use the return value of `=` (an assignment) in conditional expressions.
+* Durum kontrolleri yapılırken aynı zamanda değer ataması için `=` ifadesini kullanmayın.
 
     ```Ruby
     # bad (+ a warning)
@@ -776,16 +756,16 @@ modules). Never use `::` for method invocation.
     end
     ```
 
-* Use `||=` freely to initialize variables.
+* `||=` ifadesini değişkeni başlatmak için kullanabilirsiniz.
 
     ```Ruby
+    # name degiskenine Bozhidar degeri sadece name nil ise ya da degeri false ise atanir.
     # set name to Bozhidar, only if it's nil or false
     name ||= 'Bozhidar'
     ```
 
-* Don't use `||=` to initialize boolean variables. (Consider what
-would happen if the current value happened to be `false`.)
-
+* `||=` ifadesini mantıksal değişkenleri başlatmak için kullanmayın. 
+  (Değişkenin o anki değeri false ise olabilecekleri göz önünen alın.)
     ```Ruby
     # bad - would set enabled to true even if it was false
     enabled ||= true
@@ -810,42 +790,40 @@ would happen if the current value happened to be `false`.)
     some_string =~ /something/
     ```
 
-* Avoid using Perl-style special variables (like `$0-9`, `$`,
-  etc. ). They are quite cryptic and their use in anything but
-  one-liner scripts is discouraged.
-
-* Never put a space between a method name and the opening parenthesis.
+* Method ismi ve parantez açma ifadesinin arasına boşluk koymayın.
 
     ```Ruby
-    # bad
+    # kotu
     f (3 + 2) + 1
 
-    # good
+    # iyi
     f(3 + 2) + 1
     ```
 
-* If the first argument to a method begins with an open parenthesis,
-  always use parentheses in the method invocation. For example, write
-`f((3 + 2) + 1)`.
+* Eğer mehodun argumanları parantez açma ifadesiyle başladıysa, method çağırımlarında hep 
+  parantezler kullanın. Örnğin: `f((3 + 2) + 1)`.
 
 * Always run the Ruby interpreter with the `-w` option so it will warn
 you if you forget either of the rules above!
 
-* Use the new lambda literal syntax for single line body blocks. Use the
-  `lambda` method for multi-line blocks.
+* Ruby kodlarını hep `-w` parametresi ile çalıştırın. Yukarıdaki kurallardan 
+  herhangi birini unutursanız size uyarı verecektir.
+
+* Tek satırdan oluşan bloklar için yeni lambda tam söz dizimi yapısını kullanın. 
+  Çok satırdan oluşan bloklar için ise `lambda`  method yapısını kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     l = lambda { |a, b| a + b }
     l.call(1, 2)
 
-    # correct, but looks extremely awkward
+    # dogru, fakat oldukca kullanissiz gorunuyor
     l = ->(a, b) do
       tmp = a * 7
       tmp * b / 50
     end
 
-    # good
+    # iyi
     l = ->(a, b) { a + b }
     l.call(1, 2)
 
@@ -855,83 +833,79 @@ you if you forget either of the rules above!
     end
     ```
 
-* Prefer `proc` over `Proc.new`.
+* `Proc.new`yerine `proc` kullanbilirsiniz.
 
     ```Ruby
-    # bad
+    # kotu
     p = Proc.new { |n| puts n }
 
-    # good
+    # iyi
     p = proc { |n| puts n }
     ```
 
-* Use `_` for unused block parameters.
+* Kullanılmayan blok parametreleri yerine `_` ifadesini kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     result = hash.map { |k, v| v + 1 }
 
-    # good
+    # iyi
     result = hash.map { |_, v| v + 1 }
     ```
 
-* Use `$stdout/$stderr/$stdin` instead of
-  `STDOUT/STDERR/STDIN`. `STDOUT/STDERR/STDIN` are constants, and
-  while you can actually reassign (possibly to redirect some stream)
-  constants in Ruby, you'll get an interpreter warning if you do so.
+* `STDOUT/STDERR/STDIN` yerine `$stdout/$stderr/$stdin` kullanın.
+  `STDOUT/STDERR/STDIN` ifadeleri sabittir, ve Ruby'de sabitlere yeniden 
+  değer ataması yapılırken uyarı verir.
 
-* Use `warn` instead of `$stderr.puts`. Apart from being more concise
-and clear, `warn` allows you to suppress warnings if you need to (by
-setting the warn level to 0 via `-W0`).
 
-* Favor the use of `sprintf` over the fairly cryptic `String#%` method.
+* `$stderr.puts` yerine `warn` ifadesi kullanın. Bu kullanım daha açık ve kısa olur.
+   `warn` ifadesi gerekiyorsa uyarıyı kaldırmaya izin verir.
+
+
+*  `String#%` yerine `sprintf` kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     '%d %d' % [20, 10]
     # => '20 10'
 
-    # good
+    # iyi
     sprintf('%d %d', 20, 10)
     # => '20 10'
     ```
-
-* Favor the use of `Array#join` over the fairly cryptic `Array#*` with
-  a string argument.
+* `Array#*` ifadesi yerine `Array#join` ifadesini kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     %w(one two three) * ', '
     # => 'one, two, three'
 
-    # good
+    # iyi
     %w(one two three).join(', ')
     # => 'one, two, three'
     ```
 
-* Use `[*var]` or `Array()` instead of explicit `Array` check, when dealing with a
-  variable you want to treat as an Array, but you're not certain it's
-  an array.
+* `Array` yerine `[*var]` ya da `Array()` ifadelerini kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     paths = [paths] unless paths.is_a? Array
     paths.each { |path| do_something(path) }
 
-    # good
+    # iyi
     [*paths].each { |path| do_something(path) }
 
-    # good (and a bit more readable)
+    # iyi (ve biraz daha okunabilir)
     Array(paths).each { |path| do_something(path) }
     ```
 
-* Use ranges instead of complex comparison logic when possible.
+* Karmaşık mantıksal karşılaştırmalarda mümkünse aralık (range ifadeleri) karşılaştırmalarını kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     do_something if x >= 1000 && x < 2000
 
-    # good
+    # iyi
     do_something if (1000...2000).include?(x)
     ```
 
