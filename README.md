@@ -383,8 +383,8 @@ Translations of the guide are available in the following languages:
      end
      ```
 
-* Tam olarak neden olduğunu bilmeden `for` yapısı kullanımamalı. Pek çok kez iteratorler yerine kullanılır.
-  `for`  yapısı `each` ile sağlanmıştır.
+* Tam olarak neden olduğunu bilmeden `for` yapısı kullanımamalı. `for` yerine pek çok zaman iteratörler kullanılır.
+  `for` yapısı `each` ile sağlanmıştır.
 
     ```Ruby
     arr = [1, 2, 3]
@@ -509,18 +509,18 @@ Translations of the guide are available in the following languages:
 
 
 * Tek satırdan oluşan `if/unless` ifadesi olduğunda bu ifadeyi değiştirin.
-  İyi bir olarak alternatif olarak `&&/||` akış kontrollerinin kullanılmasıdır.
+  İyi bir olarak alternatif olarak `&&/||` akış kontrollerini kullanabilirsiniz.
 
     ```Ruby
-    # bad
+    # kotu
     if some_condition
       do_something
     end
 
-    # good
+    # iyi
     do_something if some_condition
 
-    # another good option
+    # bir diger iyi secim
     some_condition && do_something
     ```
 
@@ -594,7 +594,8 @@ Translations of the guide are available in the following languages:
     do_something until some_condition
     ```
 
-* `begin/end/until` ya da  `begin/end/while` kullanmak yerine döngü sonrasında yapılan testler için `Kernel#loop` ifadesini kullanın.
+* `begin/end/until` ya da `begin/end/while` kullanmak yerine döngü sonrasında 
+   yapılan testler için `Kernel#loop` ifadesini kullanın.
 
    ```Ruby
    # kotu
@@ -611,7 +612,8 @@ Translations of the guide are available in the following languages:
    end
    ```
 
-* Parametresi olan tüm method çağırımlarında parantezler kullanın. Özelliklere erişirken de parantez kullanımını atlayın.
+* Parametresi olan tüm method çağırımlarında parantezler kullanın. 
+  Özelliklere erişirken de parantez kullanımını atlayın.
 
     ```Ruby
     class Person
@@ -684,7 +686,8 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* `self` gerekli değilse kullanmayın. (`self` sadece kendi tanımladığımız erişimciler (accessor) için gereklidir.)
+* `self` gerekli değilse kullanmayın. (`self` sadece kendi tanımladığımız 
+   erişimciler (accessor) için gereklidir.)
 
     ```Ruby
     # kotu
@@ -765,12 +768,12 @@ Translations of the guide are available in the following languages:
     ```
 
 * `||=` ifadesini mantıksal değişkenleri başlatmak için kullanmayın. 
-  (Değişkenin o anki değeri false ise olabilecekleri göz önünen alın.)
+  (Değişkenin o anki değeri false ise olabilecekleri dikkate alın.)
     ```Ruby
-    # bad - would set enabled to true even if it was false
+    # kotu - eger false ise bile true deger ataması yapılır
     enabled ||= true
 
-    # good
+    # iyi
     enabled = true if enabled.nil?
     ```
 
@@ -800,11 +803,8 @@ Translations of the guide are available in the following languages:
     f(3 + 2) + 1
     ```
 
-* Eğer mehodun argumanları parantez açma ifadesiyle başladıysa, method çağırımlarında hep 
+* Eğer methodun argumanları parantez açma ifadesiyle başladıysa, method çağırımlarında hep 
   parantezler kullanın. Örnğin: `f((3 + 2) + 1)`.
-
-* Always run the Ruby interpreter with the `-w` option so it will warn
-you if you forget either of the rules above!
 
 * Ruby kodlarını hep `-w` parametresi ile çalıştırın. Yukarıdaki kurallardan 
   herhangi birini unutursanız size uyarı verecektir.
@@ -855,11 +855,11 @@ you if you forget either of the rules above!
 
 * `STDOUT/STDERR/STDIN` yerine `$stdout/$stderr/$stdin` kullanın.
   `STDOUT/STDERR/STDIN` ifadeleri sabittir, ve Ruby'de sabitlere yeniden 
-  değer ataması yapılırken uyarı verir.
+   değer ataması yapılırken uyarı verir.
 
 
 * `$stderr.puts` yerine `warn` ifadesi kullanın. Bu kullanım daha açık ve kısa olur.
-   `warn` ifadesi gerekiyorsa uyarıyı kaldırmaya izin verir.
+  `warn` ifadesi gerekiyorsa uyarıyı kaldırmaya izin verir.
 
 
 *  `String#%` yerine `sprintf` kullanın.
@@ -899,7 +899,8 @@ you if you forget either of the rules above!
     Array(paths).each { |path| do_something(path) }
     ```
 
-* Karmaşık mantıksal karşılaştırmalarda mümkünse aralık (range ifadeleri) karşılaştırmalarını kullanın.
+* Karmaşık mantıksal karşılaştırmalarda mümkünse aralık (range ifadeleri) 
+  karşılaştırmalarını kullanın.
 
     ```Ruby
     # kotu
