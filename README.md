@@ -910,26 +910,26 @@ Translations of the guide are available in the following languages:
     do_something if (1000...2000).include?(x)
     ```
 
-## Naming
+## Adlandırmalar
 
 > The only real difficulties in programming are cache invalidation and
 > naming things. <br/>
 > -- Phil Karlton
 
-* Name identifiers in English.
+* Tanımlamalardaki isimler İngilizce olmalı.
 
     ```Ruby
-    # bad - variable name written in Bulgarian with latin characters
+    # kotu - degisken ismi Bulgarca olarak yazilmis
     zaplata = 1_000
 
-    # good
+    # iyi
     salary = 1_000
     ```
 
-* Use `snake_case` for symbols, methods and variables.
+* Semboller, metodlar ve değişkenler için `snake_case` kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     :'some symbol'
     :SomeSymbol
     :someSymbol
@@ -944,7 +944,7 @@ Translations of the guide are available in the following languages:
      ...
     end
 
-    # good
+    # iyi
     :some_symbol
 
     def some_method
@@ -952,11 +952,11 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* Use `CamelCase` for classes and modules.  (Keep acronyms like HTTP,
-  RFC, XML uppercase.)
+* Sınıf ve modüller için `CamelCase` kullanın. (HTTP, RFC, XML gibi kısaltmalardaki 
+  büyük harfleri değiştirmeyin.)
 
     ```Ruby
-    # bad
+    # kotu
     class Someclass
       ...
     end
@@ -969,7 +969,7 @@ Translations of the guide are available in the following languages:
       ...
     end
 
-    # good
+    # iyi
     class SomeClass
       ...
     end
@@ -979,19 +979,23 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* Use `SCREAMING_SNAKE_CASE` for other constants.
+* Diğer sabitler için `SCREAMING_SNAKE_CASE` kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     SomeConst = 5
 
-    # good
+    # iyi
     SOME_CONST = 5
     ```
 
 * The names of predicate methods (methods that return a boolean value)
   should end in a question mark.
   (i.e. `Array#empty?`).
+
+* Doğrulama metodlarının (true, false gibi mantıksal değerler döndüren methodlar)
+   isimlerinde soru işareti karaterini kullanıbilirsiniz. (`Array#empty?`)
+
 * The names of potentially *dangerous* methods (i.e. methods that
   modify `self` or the arguments, `exit!` (doesn't run the finalizers
   like `exit` does), etc.) should end with an exclamation mark if
@@ -1022,6 +1026,7 @@ Translations of the guide are available in the following languages:
 
 * Define the non-bang (safe) method in terms of the bang (dangerous)
   one if possible.
+
 
     ```Ruby
     class Array
@@ -1073,7 +1078,7 @@ Translations of the guide are available in the following languages:
     all_songs = users.flat_map(&:songs).uniq
     ```
 
-## Comments
+## Yorumlar
 
 > Good code is its own best documentation. As you're about to add a
 > comment, ask yourself, "How can I improve the code so that this
@@ -1082,35 +1087,34 @@ Translations of the guide are available in the following languages:
 > -- Steve McConnell
 
 * Write self-documenting code and ignore the rest of this section. Seriously!
-* Write comments in English.
-* Use one space between the leading `#` character of the comment and the text
-  of the comment.
-* Comments longer than a word are capitalized and use punctuation. Use [one
-  space](http://en.wikipedia.org/wiki/Sentence_spacing) after periods.
-* Avoid superfluous comments.
+* Yorumları İngilizce yazın.
+* Yorum satırlarında `#` karakteri ve metin arasında bir boşluk bırakın.
+* Bir kelimeden daha uzun ve noktalalama işaretleri olan yorum satırları yazın. 
+  Virgülden sonra bir boşluk bırakın.
+* Gereksiz yorumlardan kaçının.
 
     ```Ruby
-    # bad
-    counter += 1 # increments counter by one
+    # kotu
+    counter += 1 # sayac birer birer artar
     ```
-
-* Keep existing comments up-to-date. An outdated comment is worse than no comment
-at all.
+* Yorum satırlarını güncel tutun. Güncel olmayan yorum satırları hiç yorum olmaması durumundan kötüdür.
 
 > Good code is like a good joke - it needs no explanation. <br/>
 > -- Russ Olsen
 
+* Yorum satırı yazdığınız için kötü kod yazmayın. Kendi kendini açıklayabilen anlaşılabilen kodlar yazın.
 * Avoid writing comments to explain bad code. Refactor the code to
   make it self-explanatory. (Do or do not - there is no try. --Yoda)
 
-### Comment Annotations
+### Yorum Açıklamaları
 
-* Annotations should usually be written on the line immediately above
-  the relevant code.
+* Açıklamalar genellikle gereken kodun hemen üst satırında olmalıdır.
+* annotation anahtar kelimesini iki nokta üst üste ve bir boşluk takip etmelidir,
+  daha sonra bir not problem tanımlanıyor. 
 * The annotation keyword is followed by a colon and a space, then a note
   describing the problem.
-* If multiple lines are required to describe the problem, subsequent
-  lines should be indented two spaces after the `#`.
+* Çoklu satırlar problem tanımlamayı gerektiriyorsa, sonraki satır 
+  `#` ifadesinden iki boşluk sonra içerde yazılmalıdır.
 
     ```Ruby
     def bar
@@ -1120,6 +1124,8 @@ at all.
     end
     ```
 
+* Bu gibi durumlarda problem nerede oluşuyorsa böylece bellidir, bu konuda herhangi bir 
+  döküman gereksiz olur. 
 * In cases where the problem is so obvious that any documentation would
   be redundant, annotations may be left at the end of the offending line
   with no note. This usage should be the exception and not the rule.
@@ -1130,22 +1136,24 @@ at all.
     end
     ```
 
-* Use `TODO` to note missing features or functionality that should be
-  added at a later date.
-* Use `FIXME` to note broken code that needs to be fixed.
-* Use `OPTIMIZE` to note slow or inefficient code that may cause
-  performance problems.
+* Sonraki zamanlarda eklemek istediğiniz şeyleri `TODO` notu ile belirtin.
+* Düzeltilmesi gereken yerlere `FIXME` notu bırakın.
+* `OPTIMIZE` notunu ise yavaş ya da verimsiz kodlar (performans problemleri) için kullanabilirsiniz.
 * Use `HACK` to note code smells where questionable coding practices
   were used and should be refactored away.
-* Use `REVIEW` to note anything that should be looked at to confirm it
-  is working as intended. For example: `REVIEW: Are we sure this is how the
-  client does X currently?`
+* Tartışmaya açık olabilecek yerler için `HACK` notunu yazabilirsiniz, sonraki zamanlarda 
+  o kod yeniden düzenlenilecektir.
+* Çalışmasına yönelik doğrulama için `REVIEW` notunu kullanabilirsiniz.
+
+
+* Uygunsa diğer özel açıklama anahtar kelimelerini de kullanabilirsiniz, fakat proje `README` 
+  ya da benzer başka bir belgede bunları yazdığınıza emin olun.
 * Use other custom annotation keywords if it feels appropriate, but be
   sure to document them in your project's `README` or similar.
 
-## Classes & Modules
+## Sınıflar & Modüller
 
-* Use a consistent structure in your class definitions.
+* Sınıf tanımlamalarında uygun yapıları kullanın. 
 
     ```Ruby
     class Person
@@ -1185,6 +1193,8 @@ at all.
 
 * Prefer modules to classes with only class methods. Classes should be
   used only when it makes sense to create instances out of them.
+* Sınıf metodlarına modülleri tercih edin. Sınıflar sadece dışarıdan 
+  kendilerine örnek oluşturularak kullanılmalıdır.
 
     ```Ruby
     # bad
