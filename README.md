@@ -1191,13 +1191,11 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* Prefer modules to classes with only class methods. Classes should be
-  used only when it makes sense to create instances out of them.
 * Sınıf metodlarına modülleri tercih edin. Sınıflar sadece dışarıdan 
   kendilerine örnek oluşturularak kullanılmalıdır.
 
     ```Ruby
-    # bad
+    # kotu
     class SomeClass
       def self.some_method
         # body omitted
@@ -1207,7 +1205,7 @@ Translations of the guide are available in the following languages:
       end
     end
 
-    # good
+    # iyi
     module SomeClass
       module_function
 
@@ -1223,8 +1221,11 @@ Translations of the guide are available in the following languages:
 * Favor the use of `module_function` over `extend self` when you want
   to turn a module's instance methods into class methods.
 
+* Sınıf içinde modülün örnek metodlarını döndürmeyi istediğinizde 
+  `extend self` kullanmak yerine `module_function` kullanımını destekleyin.
+
     ```Ruby
-    # bad
+    # kotu
     module Utilities
       extend self
 
@@ -1237,7 +1238,7 @@ Translations of the guide are available in the following languages:
       end
     end
 
-    # good
+    # iyi
     module Utilities
       module_function
 
@@ -1251,11 +1252,11 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* When designing class hierarchies make sure that they conform to the
-  [Liskov Substitution Principle](http://en.wikipedia.org/wiki/Liskov_substitution_principle).
-* Try to make your classes as
-  [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design\))
-  as possible.
+* Sınıf hiyerarşilerini tasarlarken [Liskov Substitution İlkelerine] (http://en.wikipedia.org/wiki/Liskov_substitution_principle)
+  uyduğuna emin olun.
+
+* Sınıfları mümkün olduğu kadar [sağlam nesneye yönelik](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design\)
+   bir biçimde yazmayı deneyin.
 * Always supply a proper `to_s` method for classes that represent
   domain objects.
 
@@ -1273,12 +1274,10 @@ Translations of the guide are available in the following languages:
       end
     end
     ```
-
-* Use the `attr` family of functions to define trivial accessors or
-mutators.
+* Erişimcileri (accessors) tanımlak için `attr` ailesinin fonksiyonlarını kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     class Person
       def initialize(first_name, last_name)
         @first_name = first_name
@@ -1294,7 +1293,7 @@ mutators.
       end
     end
 
-    # good
+    # iyi
     class Person
       attr_reader :first_name, :last_name
 
@@ -1305,11 +1304,10 @@ mutators.
     end
     ```
 
-* Consider using `Struct.new`, which defines the trivial accessors,
-constructor and comparison operators for you.
+* Erişimcileri tanımlamak için `Struct.new` kullanımınıda dikkate alabilirsiniz. 
 
     ```Ruby
-    # good
+    # iyi
     class Person
       attr_reader :first_name, :last_name
 
@@ -1319,15 +1317,17 @@ constructor and comparison operators for you.
       end
     end
 
-    # better
+    # daha iyi
     Person = Struct.new(:first_name, :last_name) do
     end
     ````
 
-* Don't extend a `Struct.new` - it already is a new class. Extending it introduces a superfluous class level and may also introduce weird errors if the file is required multiple times.
+* `Struct.new` yapısını genişletmeyin (extend). - zaten `Struct.new` yapısı yeni bir sınıftır. 
+  Genişletme `Struct.new` i gereksiz bir sınıf seviyesinde tanıtır  ve aynı zamanda dosya bir kaç kez isteniyorsa (require)
+  korkunç hatalarda getirebilir
 
-* Consider adding factory methods to provide additional sensible ways
-to create instances of a particular class.
+* Daha mantıklı yollarla bir sınıfın örneklerini oluşturmayı
+  faktör metodlarını ekleyerek sağlamayı dikkate alın. 
 
     ```Ruby
     class Person
@@ -1337,10 +1337,11 @@ to create instances of a particular class.
     end
     ```
 
-* Prefer [duck-typing](http://en.wikipedia.org/wiki/Duck_typing) over inheritance.
+* Miras kavramı üzerinde [duck-typing](http://en.wikipedia.org/wiki/Duck_typing) 
+  kodlamasını tecih edin.
 
     ```Ruby
-    # bad
+    # kotu
     class Animal
       # abstract method
       def speak
@@ -1361,7 +1362,7 @@ to create instances of a particular class.
       end
     end
 
-    # good
+    # iyi
     class Duck
       def speak
         puts 'Quack! Quack'
@@ -1375,8 +1376,8 @@ to create instances of a particular class.
     end
     ```
 
-* Avoid the usage of class (`@@`) variables due to their "nasty" behavior
-in inheritance.
+* Mirasta kötü sonuçlara sebep olabileceği için 
+  `@@` değişken kullanımından kaçının.
 
     ```Ruby
     class Parent
@@ -1394,19 +1395,28 @@ in inheritance.
     Parent.print_class_var # => will print "child"
     ```
 
-    As you can see all the classes in a class hierarchy actually share one
-    class variable. Class instance variables should usually be preferred
-    over class variables.
+    Tüm sınıfları, sınıf hiyerarşisinde gerçekte bir sınıf 
+    değişkeninin paylaşıldığını görebilirsiniz. Sınıf örnek değişkenleri 
+    genelde sadece sınıf değişkenleri üzerinde tercih edilir.
 
 * Assign proper visibility levels to methods (`private`, `protected`)
 in accordance with their intended usage. Don't go off leaving
 everything `public` (which is the default). After all we're coding
 in *Ruby* now, not in *Python*.
+
+* Uygun görünebilirlik düzeyinde (`private`, `protected`) metodların kullanımlarına 
+  yönelik atamalar yapılır. Emin olamadım.
+
+
 * Indent the `public`, `protected`, and `private` methods as much the
   method definitions they apply to. Leave one blank line above the
   visibility modifier
   and one blank line below in order to emphasize that it applies to all
   methods below it.
+
+* public`, `protected`, ve `private metod tanımlamaları bir çok metoda 
+  uygulanabilir. Bu tanımlamalardan sonra bir satır boşluk bırakın ve bu 
+  tür tanımlamasından altındaki tüm metodlara uygulanır.
 
     ```Ruby
     class SomeClass
@@ -1428,6 +1438,8 @@ in *Ruby* now, not in *Python*.
 
 * Use `def self.method` to define singleton methods. This makes the code
   easier to refactor since the class name is not repeated.
+
+* Tek (singleton) sınıfları tanımlamak için `def self.method` kullanın. 
 
     ```Ruby
     class TestClass
