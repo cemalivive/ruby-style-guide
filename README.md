@@ -1467,11 +1467,13 @@ in *Ruby* now, not in *Python*.
     end
     ```
 
-## Exceptions
+## İstisnalar
 
-* Signal exceptions using the `fail` method. Use `raise` only when
-  catching an exception and re-raising it (because here you're not
-  failing, but explicitly and purposefully raising an exception).
+* `fail` metodu kullanarak istisnaları (exceptions) yayabilirsiniz. `raise` i sadece 
+  istisnayı yakalayacağınız zaman kullanın ve bu sayede istisnayı yeniden yükseltin
+  (re-raising exceptions) (çünkü burada hata oluşmuyor ama açıkça ve kasıtlı olarak 
+  istisna çıkartıyorsun)
+
 
     ```Ruby
     begin
@@ -1487,6 +1489,11 @@ in *Ruby* now, not in *Python*.
   exception had been raised at all. In effect, the exception will be
   silently thrown away.
 
+* Asla `ensure` bloğundan değer geri döndürmeyin. Açıkça `ensure` bloğu içindeki
+  bir metoddan değer döndürüyorsanız, geri döndürdüğünüz şey herhangi bir istisna üzerinde öncelik 
+  alacaktır, ve metod istisna yoksa geri döndürülecek. 
+
+
     ```Ruby
     def foo
       begin
@@ -1498,9 +1505,10 @@ in *Ruby* now, not in *Python*.
     ```
 
 * Use *implicit begin blocks* where possible.
+* Uygun olan yerlerde *begin* bloklarını kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     def foo
       begin
         # main logic goes here
@@ -1509,7 +1517,7 @@ in *Ruby* now, not in *Python*.
       end
     end
 
-    # good
+    # iyi
     def foo
       # main logic goes here
     rescue
@@ -1517,11 +1525,12 @@ in *Ruby* now, not in *Python*.
     end
     ```
 
-* Mitigate the proliferation of `begin` blocks by using
-  *contingency methods* (a term coined by Avdi Grimm).
+* *beklenmedik durum metodları (contingency methods)* nı kullanarak `begin` bloklarının 
+  çoğalmasını azaltın.
+
 
     ```Ruby
-    # bad
+    # kotu
     begin
       something_that_might_fail
     rescue IOError
@@ -1534,7 +1543,7 @@ in *Ruby* now, not in *Python*.
       # handle IOError
     end
 
-    # good
+    # iyi
     def with_io_error_handling
        yield
     rescue IOError
@@ -1546,39 +1555,37 @@ in *Ruby* now, not in *Python*.
     with_io_error_handling { something_else_that_might_fail }
     ```
 
-* Don't suppress exceptions.
-
+* İstisnaları önleyin.
     ```Ruby
-    # bad
+    # kotu
     begin
-      # an exception occurs here
+      # burada bir istsina olusuyor
     rescue SomeError
       # the rescue clause does absolutely nothing
     end
 
-    # bad
+    # kotu
     do_something rescue nil
     ```
 
-* Avoid using `rescue` in its modifier form.
+* `rescue` içinde onun niteleyici özelliklerini kullanmaktan kaçının.
 
     ```Ruby
     # bad - this catches all StandardError exceptions
     do_something rescue nil
     ```
 
-
-* Don't use exceptions for flow of control.
+* Akış kontrolü için istisnaları (exceptions) kulllanmayın.
 
     ```Ruby
-    # bad
+    # kotu
     begin
       n / d
     rescue ZeroDivisionError
       puts 'Cannot divide by 0!'
     end
 
-    # good
+    # iyi
     if d.zero?
       puts 'Cannot divide by 0!'
     else
@@ -1588,6 +1595,9 @@ in *Ruby* now, not in *Python*.
 
 * Avoid rescuing the `Exception` class.  This will trap signals and calls to
   `exit`, requiring you to `kill -9` the process.
+
+* Exception` sınıf kurtarımından kaçının. Bu durumda sinyaller yakalanacak 
+  ve `exit` çağırılacak, size gereken ise `kill -9` süreci.
 
     ```Ruby
     # bad
@@ -1599,7 +1609,7 @@ in *Ruby* now, not in *Python*.
       # exception handling
     end
 
-    # good
+    # iyi
     begin
       # a blind rescue rescues from StandardError, not Exception as many
       # programmers assume.
@@ -1607,7 +1617,7 @@ in *Ruby* now, not in *Python*.
       # exception handling
     end
 
-    # also good
+    # 
     begin
       # an exception occurs here
 
@@ -1617,31 +1627,8 @@ in *Ruby* now, not in *Python*.
 
     ```
 
-* Put more specific exceptions higher up the rescue chain, otherwise
-  they'll never be rescued from.
-
-    ```Ruby
-    # bad
-    begin
-      # some code
-    rescue Exception => e
-      # some handling
-    rescue StandardError => e
-      # some handling
-    end
-
-    # good
-    begin
-      # some code
-    rescue StandardError => e
-      # some handling
-    rescue Exception => e
-      # some handling
-    end
-    ```
-
-* Release external resources obtained by your program in an ensure
-block.
+* Dış kaynaklardan elde ettiklerinizi programdan çıkarırken `ensure`
+  bloğunu kullanın.
 
     ```Ruby
     f = File.open('testfile')
@@ -1654,20 +1641,16 @@ block.
     end
     ```
 
-* Favor the use of exceptions for the standard library over
-introducing new exception classes.
-
 ## Collections
 
-* Prefer literal array and hash creation notation (unless you need to
-pass parameters to their constructors, that is).
+* Gerekmediği sürece dizi ve hash üretimlerini `.new` yazımıyla yapmayın.
 
     ```Ruby
-    # bad
+    # kotu
     arr = Array.new
     hash = Hash.new
 
-    # good
+    # iyi
     arr = []
     hash = {}
     ```
