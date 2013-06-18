@@ -1744,26 +1744,24 @@ in *Ruby* now, not in *Python*.
 
 ## Strings
 
-* Prefer string interpolation instead of string concatenation:
+* Stringleri aralara eklemeler yaparak birleştirmek yerine, bütün halinde yazın:
 
     ```Ruby
-    # bad
+    # kotu
     email_with_name = user.name + ' <' + user.email + '>'
 
-    # good
+    # iyi
     email_with_name = "#{user.name} <#{user.email}>"
     ```
 
-* Consider padding string interpolation code with space. It more clearly sets the
-  code apart from the string.
+* Stringlerin arasına boşluk bırakmaya dikkat edin.
 
     ```Ruby
     "#{ user.last_name }, #{ user.first_name }"
     ```
 
-* Prefer single-quoted strings when you don't need string interpolation or
-  special symbols such as `\t`, `\n`, `'`, etc.
-
+* Çift tırnak yerine `\t`, `\n`, `'` gibi özel sembollere ihtiyacınız olmadğında
+  tek tırnak kullanın.
     ```Ruby
     # bad
     name = "Bozhidar"
@@ -1772,8 +1770,7 @@ in *Ruby* now, not in *Python*.
     name = 'Bozhidar'
     ```
 
-* Don't leave out `{}` around instance and global variables being
-  interpolated into a string.
+* String içinde global ve örnek (instance) değişkenleri yazarken `{}` kullanın.
 
     ```Ruby
     class Person
@@ -1784,51 +1781,35 @@ in *Ruby* now, not in *Python*.
         @last_name = last_name
       end
 
-      # bad - valid, but awkward
+      # kotu - gecerli, ama kullanissiz
       def to_s
         "#@first_name #@last_name"
       end
 
-      # good
+      # iyi
       def to_s
         "#{@first_name} #{@last_name}"
       end
     end
 
     $global = 0
-    # bad
+    # kotu
     puts "$global = #$global"
 
-    # good
+    # iyi
     puts "$global = #{$global}"
     ```
-
-* Avoid using `String#+` when you need to construct large data chunks.
-  Instead, use `String#<<`. Concatenation mutates the string instance in-place
-  and is always faster than `String#+`, which creates a bunch of new string objects.
+* Değişen büyük string parçalarını `String#+` şeklinde birleştirmek yerine 
+  `String#<<` yapısını kullanın.
 
     ```Ruby
-    # good and also fast
+    # iyi ve hizli
     html = ''
     html << '<h1>Page title</h1>'
 
     paragraphs.each do |paragraph|
       html << "<p>#{paragraph}</p>"
     end
-    ```
-
-* When using heredocs for multi-line strings keep in mind the fact
-  that they preserve leading whitespace. It's a good practice to
-  employ some margin based on which to trim the excessive whitespace.
-
-    ```Ruby
-    code = <<-END.gsub(/^\s+\|/, '')
-      |def test
-      |  some_method
-      |  other_method
-      |end
-    END
-    #=> "def\n  some_method\n  \nother_method\nend"
     ```
 
 ## Regular Expressions
