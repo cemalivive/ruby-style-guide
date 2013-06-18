@@ -1654,74 +1654,78 @@ in *Ruby* now, not in *Python*.
     arr = []
     hash = {}
     ```
-
-* Prefer `%w` to the literal array syntax when you need an array of
-words(non-empty strings without spaces and special characters in them).
-Apply this rule only to arrays with two or more elements.
+* Kelimelerden oluşan iki ya da daha fazla elemanı olan dizilerde `%w` 
+  yazımını kullanabilirsiniz.
 
     ```Ruby
-    # bad
+    # kotu
     STATES = ['draft', 'open', 'closed']
 
-    # good
+    # iyi
     STATES = %w(draft open closed)
     ```
 
-* Prefer `%i` to the literal array syntax when you need an array of
-symbols(and you don't need to maintain Ruby 1.9 compatibility). Apply
-this rule only to arrays with two or more elements.
+* Sembol tanımları için `%i` yazımını tercih edebilirsiniz. Bu yazımı da iki 
+  ya da daha fazla elemandan oluşan diziler için tercih edin.
 
     ```Ruby
-    # bad
+    # kotu
     STATES = [:draft, :open, :closed]
 
-    # good
+    # iyi
     STATES = %i(draft open closed)
     ```
 
-* Avoid the creation of huge gaps in arrays.
+* Çok fazla boş (nil) eleman içeren diziler oluşturmayın.
 
     ```Ruby
     arr = []
     arr[100] = 1 # now you have an array with lots of nils
     ```
 
-* When accessing the first or last element from an array, prefer `first` or `last` over `[0]` or `[-1]`.
+* Bir dizinin ilk ya  da en son elemanına erişmek istiyorsanız `[0]` ya da `[-1]` yerine `first` ya da `last
+  tercih edin.
 
 * Use `Set` instead of `Array` when dealing with unique elements. `Set`
   implements a collection of unordered values with no duplicates. This
   is a hybrid of `Array`'s intuitive inter-operation facilities and
   `Hash`'s fast lookup.
-* Prefer symbols instead of strings as hash keys.
+
+
+* `Array` yerine `Set` kullanın. `Set` yapısı tuttuğunuz elemanların birden 
+   fazla kez yapı içerisinde tutulmasına izin vermez. 
+
+* Hash anahtarlarında stringler yerine sembolleri tercih edin.
 
     ```Ruby
-    # bad
+    # kotu
     hash = { 'one' => 1, 'two' => 2, 'three' => 3 }
 
-    # good
+    # iyi
     hash = { one: 1, two: 2, three: 3 }
     ```
 
-* Avoid the use of mutable objects as hash keys.
-* Use the hash literal syntax when your hash keys are symbols.
+* Hash anahtarlaında değiştirilebilir nesneler kullanmaktan kaçının.
+* Hash keyleri sembol olduğunda hash yazımını kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     hash = { :one => 1, :two => 2, :three => 3 }
 
-    # good
+    # iyi
     hash = { one: 1, two: 2, three: 3 }
     ```
 
-* Use `fetch` when dealing with hash keys that should be present.
+* Hash elemanlarını hash anahtarları görünebilir olduğunda `fetch` 
+  kullanarak elde edin.
 
     ```Ruby
     heroes = { batman: 'Bruce Wayne', superman: 'Clark Kent' }
-    # bad - if we make a mistake we might not spot it right away
+    # kotu - hata yaptigimizda fark edemeyiz
     heroes[:batman] # => "Bruce Wayne"
     heroes[:supermann] # => nil
 
-    # good - fetch raises a KeyError making the problem obvious
+    # iyi - fetch yapisi KeyError oldugunu anlamamizi saglar
     heroes.fetch(:supermann)
     ```
 * Use `fetch` with second argument to use a default value
@@ -1737,7 +1741,6 @@ this rule only to arrays with two or more elements.
    ```
 
 * Rely on the fact that as of Ruby 1.9 hashes are ordered.
-* Never modify a collection while traversing it.
 
 ## Strings
 
