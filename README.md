@@ -1818,9 +1818,11 @@ in *Ruby* now, not in *Python*.
 > "I know, I'll use regular expressions." Now they have two problems.<br/>
 > -- Jamie Zawinski
 
-* Don't use regular expressions if you just need plain text search in string:
-  `string['text']`
-* For simple constructions you can use regexp directly through string index.
+* Düz metin içerisinde string aramak için düzenli ifadeler kullanmayın:
+ `string['text']`
+
+* Basit yapılar için string indexi sayesinde direkt olarak 
+  düzenli ifadeleri kullanabilirsiniz.
 
     ```Ruby
     match = string[/regexp/]             # get content of matched regexp
@@ -1828,73 +1830,26 @@ in *Ruby* now, not in *Python*.
     string[/text (grp)/, 1] = 'replace'  # string => 'text replace'
     ```
 
-* Use non-capturing groups when you don't use captured result of parentheses.
-
-    ```Ruby
-    /(first|second)/   # bad
-    /(?:first|second)/ # good
-    ```
-
-* Avoid using $1-9 as it can be hard to track what they contain. Named groups
-  can be used instead.
-
-    ```Ruby
-    # bad
-    /(regexp)/ =~ string
-    ...
-    process $1
-
-    # good
-    /(?<meaningful_var>regexp)/ =~ string
-    ...
-    process meaningful_var
-    ```
-
-* Character classes have only a few special characters you should care about:
-  `^`, `-`, `\`, `]`, so don't escape `.` or brackets in `[]`.
-
-* Be careful with `^` and `$` as they match start/end of line, not string endings.
-  If you want to match the whole string use: `\A` and `\z` (not to be
-  confused with `\Z` which is the equivalent of `/\n?\z/`).
-
-    ```Ruby
-    string = "some injection\nusername"
-    string[/^username$/]   # matches
-    string[/\Ausername\z/] # don't match
-    ```
-
-* Use `x` modifier for complex regexps. This makes them more readable and you
-  can add some useful comments. Just be careful as spaces are ignored.
-
-    ```Ruby
-    regexp = %r{
-      start         # some text
-      \s            # white space char
-      (group)       # first group
-      (?:alt1|alt2) # some alternation
-      end
-    }x
-    ```
-
-* For complex replacements `sub`/`gsub` can be used with block or hash.
+* Karmaşık yapılarda yerine yazma için `sub`/`gsub` yapılarını kullanabilirsiniz.
 
 ## Percent Literals
 
-* Use `%()`(it's a shorthand for `%Q`) for single-line strings which require both interpolation
-  and embedded double-quotes. For multi-line strings, prefer heredocs.
+
+* `%()` (`%Q` kısaltmasıdır) birleştirilerek yazılan ve çift tırnak içeren stringler 
+  (ikisi bir arada olmalı) için kullanabilirsiniz.
 
     ```Ruby
-    # bad (no interpolation needed)
+    # kotu (string birleştirmesi, araya giren değişkenler gibi ifadeler yok)
     %(<div class="text">Some text</div>)
-    # should be '<div class="text">Some text</div>'
+    # '<div class="text">Some text</div>' şeklinde olmalı
 
-    # bad (no double-quotes)
+    # kotu (çift tirnak yok)
     %(This is #{quality} style)
-    # should be "This is #{quality} style"
+    # "This is #{quality} style" şeklinde olmalı
 
-    # bad (multiple lines)
+    # kotu (çok satırdan meydana geliyor)
     %(<div>\n<span class="big">#{exclamation}</span>\n</div>)
-    # should be a heredoc.
+    # 
 
     # good (requires interpolation, has quotes, single line)
     %(<tr><td class="name">#{name}</td>)
@@ -1918,55 +1873,58 @@ in *Ruby* now, not in *Python*.
     ```
 
 * Use `%r` only for regular expressions matching *more than* one '/' character.
+* '/' karakteriyle çok fazla eşleşme gerektiren işlem yaptırıyorsanız `%r` kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     %r(\s+)
 
-    # still bad
+    # hala kotu
     %r(^/(.*)$)
     # should be /^\/(.*)$/
 
-    # good
+    # iyi
     %r(^/blog/2011/(.*)$)
     ```
 
-* Avoid the use of `%x` unless you're going to invoke a command with backquotes in it(which is rather unlikely).
+* Bir komutun içerisinde ter tırnakla bir şey çağırmanız gerekmediği sürece 
+  `%x` kullanmayın (genelde alışılmadık bir durum)
 
     ```Ruby
-    # bad
+    # kotu
     date = %x(date)
 
-    # good
+    # iyi
     date = `date`
     echo = %x(echo `date`)
     ```
-
-* Avoid the use of `%s`. It seems that the community has decided
-  `:"some string"` is the preferred way to created a symbol with
-  spaces in it.
 
 * Prefer `()` as delimiters for all `%` literals, except `%r`. Given
   the nature of regexp in many scenarios a less command character than
   `(` might be a better choice for a delimiter.
 
+
+* `%r` dışında tüm `%` yazımlar için ayırıcı olarak `()` kullanımını tercih edin. 
+  Düzenli ifadelerin doğası gereği bir çok durumda `(` kullanımı daha iyidir.
+  
     ```Ruby
-    # bad
+    # kotu
     %w[one two three]
     %q{"Test's king!", John said.}
 
-    # good
+    # iyi
     %w(one tho three)
     %q{"Test's king!", John said.}
     ```
 
 ## Metaprogramming
 
-* Avoid needless metaprogramming.
+* Gereksiz meta program kullanımından kaçının.
 
 * Do not mess around in core classes when writing libraries.
   (Do not monkey-patch them.)
 
+* `class_eval` blok biçimlerinde araya string katarak tercih edebilirsiniz.
 * The block form of `class_eval` is preferable to the string-interpolated form.
   - when you use the string-interpolated form, always supply `__FILE__` and `__LINE__`, so that your backtraces make sense:
 
@@ -2027,20 +1985,26 @@ in *Ruby* now, not in *Python*.
 
 ## Misc
 
-* Write `ruby -w` safe code.
+* Daha güvenli kod için `ruby -w` şeklinde çalıştırın.
+* İsteğe bağlı parametreler olarak hash yapısı kullanmayın. (Nesne ilklendiricileri bu kural için istisnadır.)
 * Avoid hashes as optional parameters. Does the method do too much? (Object initializers are exceptions for this rule).
 * Avoid methods longer than 10 LOC (lines of code). Ideally, most methods will be shorter than
   5 LOC. Empty lines do not contribute to the relevant LOC.
+* 10 satırdan fazla metod kullanmayın. İdeal olarak, metodlar 5 satırdan kısa olmalıdır. 
+  Boşluk bırakılan satırlar kod yazılmış olarak sayılmaz.
 * Avoid parameter lists longer than three or four parameters.
+* 3 ya da 4'ten fazla parametre kullanmayın.
 * If you really need "global" methods, add them to Kernel
   and make them private.
+* "global" metodlara gercekten ihtiyacınız varsa, bu metodları çekirdeğe private olarak ekleyin.
 * Use module instance variables instead of global variables.
+* Modül örnek değişkenlerini global değişkenler yerine kullanın.
 
     ```Ruby
-    # bad
+    # kotu
     $foo_bar = 1
 
-    #good
+    # iyi
     module Foo
       class << self
         attr_accessor :bar
@@ -2051,11 +2015,15 @@ in *Ruby* now, not in *Python*.
     ```
 
 * Avoid `alias` when `alias_method` will do.
+* `alias_method` kullanacağınız zaman `alias` kullanmayın.
 * Use `OptionParser` for parsing complex command line options and
 `ruby -s` for trivial command line options.
+* Karmaşık komut satırı seçeneklerinde `OptionParser` kullanın ve önemsiz 
+  komut satırı seçenekleri için `ruby -s` kullanın.
 * Code in a functional way, avoiding mutation when that makes sense.
 * Do not mutate arguments unless that is the purpose of the method.
 * Avoid more than three levels of block nesting.
+* Üçten fazla iç içe blok kullanımından kaçının.
 * Be consistent. In an ideal world, be consistent with these guidelines.
 * Use common sense.
 
