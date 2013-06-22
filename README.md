@@ -1,74 +1,14 @@
-# Prelude
+#Ruby Kodlama Tarzı Klavuzu
 
-> Role models are important. <br/>
-> -- Officer Alex J. Murphy / RoboCop
+Aşağıdaki maddeler Ruby ile kodlama yapılırken en fazla kullanılan ortak kurallardır.
+Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.com/bbatsov/ruby-style-guide) ulaşabilirsiniz.
 
-One thing has always bothered me as Ruby developer - Python developers
-have a great programming style reference
-([PEP-8](http://www.python.org/dev/peps/pep-0008/)) and we never got
-an official guide, documenting Ruby coding style and best
-practices. And I do believe that style matters. I also believe that
-such fine fellows, like us Ruby developers, should be quite capable to
-produce this coveted document.
-
-This guide started its life as our internal company Ruby coding guidelines
-(written by yours truly). At some point I decided that the work I was
-doing might be interesting to members of the Ruby community in general
-and that the world had little need for another internal company
-guideline. But the world could certainly benefit from a
-community-driven and community-sanctioned set of practices, idioms and
-style prescriptions for Ruby programming.
-
-Since the inception of the guide I've received a lot of feedback from
-members of the exceptional Ruby community around the world. Thanks for
-all the suggestions and the support! Together we can make a resource
-beneficial to each and every Ruby developer out there.
-
-By the way, if you're into Rails you might want to check out the
-complementary
-[Ruby on Rails 3 Style Guide](https://github.com/bbatsov/rails-style-guide).
-
-# The Ruby Style Guide
-
-This Ruby style guide recommends best practices so that real-world Ruby
-programmers can write code that can be maintained by other real-world Ruby
-programmers. A style guide that reflects real-world usage gets used, and a
-style guide that holds to an ideal that has been rejected by the people it is
-supposed to help risks not getting used at all &ndash; no matter how good it is.
-
-The guide is separated into several sections of related rules. I've
-tried to add the rationale behind the rules (if it's omitted I've
-assumed that is pretty obvious).
-
-I didn't come up with all the rules out of nowhere - they are mostly
-based on my extensive career as a professional software engineer,
-feedback and suggestions from members of the Ruby community and
-various highly regarded Ruby programming resources, such as
-["Programming Ruby 1.9"](http://pragprog.com/book/ruby4/programming-ruby-1-9-2-0)
-and ["The Ruby Programming Language"](http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177).
-
-The guide is still a work in progress - some rules are lacking
-examples, some rules don't have examples that illustrate them clearly
-enough. In due time these issues will be addressed - just keep them in
-mind for now.
-
-You can generate a PDF or an HTML copy of this guide using
-[Transmuter](https://github.com/TechnoGate/transmuter).
-
-[RuboCop](https://github.com/bbatsov/rubocop) is a code analyzer,
-based on this style guide.
-
-Translations of the guide are available in the following languages:
-
-* [Chinese Simplified](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
-* [Chinese Traditional](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
-* [French](https://github.com/porecreat/ruby-style-guide/blob/master/README-frFR.md)
 
 ## Table of Contents
 
-* [Source Code Layout](#source-code-layout)
-* [Syntax](#syntax)
-* [Naming](#naming)
+* [Kaynak Kod Düzeni](#source-code-layout)
+* [Söz Dizimi](#syntax)
+* [Adlandırmalar](#naming)
 * [Comments](#comments)
     * [Comment Annotations](#comment-annotations)
 * [Classes](#classes--modules)
@@ -81,12 +21,7 @@ Translations of the guide are available in the following languages:
 * [Misc](#misc)
 * [Tools](#tools)
 
-## Source Code Layout
-
-> Nearly everybody is convinced that every style but their own is
-> ugly and unreadable. Leave out the "but their own" and they're
-> probably right... <br/>
-> -- Jerry Coffin (on indentation)
+## Kaynak Kod Düzeni
 
 * Kodlamada `UTF-8` kullanılmalı.
 * Girinti başına **2 boşluk** kullanılmalı ancak bu durum sekmeler (tab) 2 boşluk ayarlanarak kullanılmamalı.
@@ -96,7 +31,7 @@ Translations of the guide are available in the following languages:
 
     ```Ruby
     # kotu kodlama
-    puts 'foobar'; # noktalı virgul gereksiz
+    puts 'foobar'; # noktali virgul gereksiz
 
     puts 'foo'; puts 'bar' # ayni satirda 2 ifade var
 
@@ -260,7 +195,7 @@ Translations of the guide are available in the following languages:
     result = 1 - \
              2
 
-    # good (but still ugly as hell)
+    # iyi
     result = 1 \
              - 2
     ```
@@ -268,18 +203,16 @@ Translations of the guide are available in the following languages:
 * Zincirlenmiş method çağırımı devam ederken bir başka satırdaki `.` ikinci satırı korur. 
 
     ```Ruby
-    # kotu - need to consult first line to understand second line
-    # kotu - ikinci satırı anlamak için ilk satırı danışmaya gerek duyulu
+    # kotu - ikinci satırı anlamak için ilk satırı danışmaya gerek duyulur
     one.two.three.
       four
 
-    # good - it's immediately clear what's going on the second line
     # iyi- bu sekilde ikinci satırda ne yapildigi hemen aciklanir
     one.two.three
       .four
     ```
 
-* Eğer aralıklar fazlaysa bir satırda, methodun tüm parametreleri hizalanmalı.
+* Eğer aralıklar fazlaysa bir satırda, metodun tüm parametreleri hizalanmalı.
 
     ```Ruby
     # baslama noktasi (satir cok uzun)
@@ -331,13 +264,13 @@ Translations of the guide are available in the following languages:
 * Blok şeklindeki yorum satırları kullanılmamalı.
 
     ```Ruby
-    #kotu
+    # kotu
     == begin
     comment line
     another comment line
     == end
 
-    #iyi
+    # iyi
     # comment line
     # another comment line
     ```
@@ -482,7 +415,7 @@ Translations of the guide are available in the following languages:
     # iyi
     x = !something
     ```
-* `and` ve `or` ifadeleri yasaklandı.  Bunların yerine hep `&&` ve `||` kullanın.
+* `and` ve `or` ifadeleri yasaklandı. Bunların yerine hep `&&` ve `||` kullanın.
 
     ```Ruby
     # kotu
@@ -509,7 +442,7 @@ Translations of the guide are available in the following languages:
 
 
 * Tek satırdan oluşan `if/unless` ifadesi olduğunda bu ifadeyi değiştirin.
-  İyi bir olarak alternatif olarak `&&/||` akış kontrollerini kullanabilirsiniz.
+  İyi biralternatif olarak `&&/||` akış kontrollerini kullanabilirsiniz.
 
     ```Ruby
     # kotu
@@ -612,7 +545,7 @@ Translations of the guide are available in the following languages:
    end
    ```
 
-* Parametresi olan tüm method çağırımlarında parantezler kullanın. 
+* Parametresi olan tüm metod çağırımlarında parantezler kullanın. 
   Özelliklere erişirken de parantez kullanımını atlayın.
 
     ```Ruby
@@ -721,14 +654,14 @@ Translations of the guide are available in the following languages:
         # both options and self.options are equivalent here
       end
 
-      # bad
+      # kotu
       def do_something(options = {})
         unless options[:when] == :later
           output(self.options[:message])
         end
       end
 
-      # good
+      # iyi
       def do_something(params = {})
         unless params[:when] == :later
           output(options[:message])
@@ -739,19 +672,19 @@ Translations of the guide are available in the following languages:
 * Durum kontrolleri yapılırken aynı zamanda değer ataması için `=` ifadesini kullanmayın.
 
     ```Ruby
-    # bad (+ a warning)
+    # kotu ( + bir uyari)
     if (v = array.grep(/foo/))
       do_something(v)
       ...
     end
 
-    # bad (+ a warning)
+    # kotu ( + bir uyari)
     if v = array.grep(/foo/)
       do_something(v)
       ...
     end
 
-    # good
+    # iyi
     v = array.grep(/foo/)
     if v
       do_something(v)
@@ -763,7 +696,6 @@ Translations of the guide are available in the following languages:
 
     ```Ruby
     # name degiskenine Bozhidar degeri sadece name nil ise ya da degeri false ise atanir.
-    # set name to Bozhidar, only if it's nil or false
     name ||= 'Bozhidar'
     ```
 
@@ -775,22 +707,6 @@ Translations of the guide are available in the following languages:
 
     # iyi
     enabled = true if enabled.nil?
-    ```
-
-* Avoid explicit use of the case equality operator `===`. As it name
-  implies it's meant to be used implicitly by `case` expressions and
-  outside of them it yields some pretty confusing code.
-
-    ```Ruby
-    # bad
-    Array === something
-    (1..100) === 7
-    /something/ === some_string
-
-    # good
-    something.is_a?(Array)
-    (1..100).include?(7)
-    some_string =~ /something/
     ```
 
 * Method ismi ve parantez açma ifadesinin arasına boşluk koymayın.
@@ -811,6 +727,7 @@ Translations of the guide are available in the following languages:
 
 * Tek satırdan oluşan bloklar için yeni lambda tam söz dizimi yapısını kullanın. 
   Çok satırdan oluşan bloklar için ise `lambda`  method yapısını kullanın.
+
 
     ```Ruby
     # kotu
@@ -912,10 +829,6 @@ Translations of the guide are available in the following languages:
 
 ## Adlandırmalar
 
-> The only real difficulties in programming are cache invalidation and
-> naming things. <br/>
-> -- Phil Karlton
-
 * Tanımlamalardaki isimler İngilizce olmalı.
 
     ```Ruby
@@ -952,8 +865,8 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* Sınıf ve modüller için `CamelCase` kullanın. (HTTP, RFC, XML gibi kısaltmalardaki 
-  büyük harfleri değiştirmeyin.)
+* Sınıf ve modüller için `CamelCase` (ilk harf küçük, diğer kelimlerin baş harfi büyük) 
+  kullanın. (HTTP, RFC, XML gibi kısaltmalardaki büyük harfleri değiştirmeyin.)
 
     ```Ruby
     # kotu
@@ -989,40 +902,10 @@ Translations of the guide are available in the following languages:
     SOME_CONST = 5
     ```
 
-* The names of predicate methods (methods that return a boolean value)
-  should end in a question mark.
-  (i.e. `Array#empty?`).
-
 * Doğrulama metodlarının (true, false gibi mantıksal değerler döndüren methodlar)
    isimlerinde soru işareti karaterini kullanıbilirsiniz. (`Array#empty?`)
 
-* The names of potentially *dangerous* methods (i.e. methods that
-  modify `self` or the arguments, `exit!` (doesn't run the finalizers
-  like `exit` does), etc.) should end with an exclamation mark if
-  there exists a safe version of that *dangerous* method.
 
-    ```Ruby
-    # bad - there is not matching 'safe' method
-    class Person
-      def update!
-      end
-    end
-
-    # good
-    class Person
-      def update
-      end
-    end
-
-    # good
-    class Person
-      def update!
-      end
-
-      def update
-      end
-    end
-    ```
 
 * Define the non-bang (safe) method in terms of the bang (dangerous)
   one if possible.
