@@ -56,7 +56,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     FooError = Class.new(StandardError)
     ```
 
-* Tek satırlık method tanımlamaları yapılmamalı.
+* Tek satırlık metot tanımlamaları yapılmamalı.
 
     ```Ruby
     # kotu
@@ -77,7 +77,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-   Bu kurala istisna olarak gövdesiz bir method örneği:
+   Bu kurala istisna olarak gövdesiz bir metot örneği:
 
     ```Ruby
     # iyi
@@ -155,7 +155,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
            else 'Jazz'
            end
 
-* `def` tanımlamaları arasında boşluk bırakılmalı ve method içinde mantıksal paragraflara ayırılmalı.
+* `def` tanımlamaları arasında boşluk bırakılmalı ve metot içinde mantıksal paragraflara ayırılmalı.
     ```Ruby
     def some_method
       data = initialize(options)
@@ -199,7 +199,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
              - 2
     ```
 
-* Zincirlenmiş method çağırımı devam ederken bir başka satırdaki `.` ikinci satırı korur. 
+* Zincirlenmiş metot çağırımı devam ederken bir başka satırdaki `.` ikinci satırı korur. 
 
     ```Ruby
     # kotu - ikinci satırı anlamak için ilk satırı danışmaya gerek duyulur
@@ -544,7 +544,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
    end
    ```
 
-* Parametresi olan tüm metod çağırımlarında parantezler kullanın. 
+* Parametresi olan tüm metot çağırımlarında parantezler kullanın. 
   Özelliklere erişirken de parantez kullanımını atlayın.
 
     ```Ruby
@@ -565,7 +565,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     bowling.score.should == 0
     ```
 
-* Parametresiz olan tüm method çağırımlarında parantezleri atlayın.
+* Parametresiz olan tüm metot çağırımlarında parantezleri atlayın.
 
     ```Ruby
     # kotu
@@ -641,7 +641,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* Sonuç olarak, her ikiside eşit olmadıkça yerel değişkenlerle methodları gölgelemekten kaçının.
+* Sonuç olarak, her ikiside eşit olmadıkça yerel değişkenlerle metotları gölgelemekten kaçının.
 
     ```Ruby
     class Foo
@@ -718,14 +718,14 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     f(3 + 2) + 1
     ```
 
-* Eğer methodun argumanları parantez açma ifadesiyle başladıysa, method çağırımlarında hep 
+* Eğer metodun argumanları parantez açma ifadesiyle başladıysa, metot çağırımlarında hep 
   parantezler kullanın. Örnğin: `f((3 + 2) + 1)`.
 
 * Ruby kodlarını hep `-w` parametresi ile çalıştırın. Yukarıdaki kurallardan 
   herhangi birini unutursanız size uyarı verecektir.
 
 * Tek satırdan oluşan bloklar için yeni lambda tam söz dizimi yapısını kullanın. 
-  Çok satırdan oluşan bloklar için ise `lambda`  method yapısını kullanın.
+  Çok satırdan oluşan bloklar için ise `lambda` metot yapısını kullanın.
 
 
     ```Ruby
@@ -838,7 +838,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     salary = 1_000
     ```
 
-* Semboller, metodlar ve değişkenler için `snake_case` kullanın.
+* Semboller, metotlar ve değişkenler için `snake_case` kullanın.
 
     ```Ruby
     # kotu
@@ -901,7 +901,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     SOME_CONST = 5
     ```
 
-* Doğrulama metodlarının (true, false gibi mantıksal değerler döndüren methodlar)
+* Doğrulama metotlarının (true, false gibi mantıksal değerler döndüren metotlar)
   isimlerinde soru işareti karakterini kullanıbilirsiniz. (`Array#empty?`)
 
 
@@ -909,7 +909,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * Define the non-bang (safe) method in terms of the bang (dangerous)
   one if possible.
 
-* Çoğunlukla [bang olmayan metod](http://rubylearning.com/satishtalim/writing_own_ruby_methods.html) tanımlamalarını tercih edin.
+* Çoğunlukla [bang olmayan metot](http://rubylearning.com/satishtalim/writing_own_ruby_methods.html) tanımlamalarını tercih edin.
     ```Ruby
     class Array
       def flatten_once!
@@ -1030,7 +1030,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* Sınıf metodlarına modülleri tercih edin. Sınıflar sadece dışarıdan 
+* Sınıf metotlarına modülleri tercih edin. Sınıflar sadece dışarıdan 
   kendilerine örnek oluşturularak kullanılmalıdır.
 
     ```Ruby
@@ -1057,7 +1057,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* Sınıf içinde modülün örnek metodlarını döndürmeyi istediğinizde 
+* Sınıf içinde modülün örnek metotlarını döndürmeyi istediğinizde 
   `extend self` kullanmak yerine `module_function` kullanımını destekleyin.
 
     ```Ruby
@@ -1164,7 +1164,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
   zamanda dosya bir kaç kez isteniyorsa (require) korkunç hatalarda getirebilir.
 
 * Daha mantıklı yollarla bir sınıfın örneklerini oluşturmayı
-  `factory` metodlarını ekleyerek sağlamayı dikkate alın. Factory metotlar için [buradan](http://en.wikipedia.org/wiki/Factory_method)
+  `factory` metotlarını ekleyerek sağlamayı dikkate alın. Factory metotlar için [buradan](http://en.wikipedia.org/wiki/Factory_method)
   yararlanabilirsiniz.
 
     ```Ruby
@@ -1238,12 +1238,12 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     değişkenleri genelde sadece sınıf değişkenleri üzerinde 
     tercih edilir.
 
-* Uygun görünebilirlik düzeyinde (`private`, `protected`) metodların kullanımlarına 
+* Uygun görünebilirlik düzeyinde (`private`, `protected`) metotların kullanımlarına 
   yönelik atamalar yapın. Her şeyi `public` olarak kodlamayın.
 
-* public`, `protected`, ve `private metod tanımlamaları bir çok metoda 
+* public`, `protected`, ve `private metot tanımlamaları bir çok metoda 
   uygulanabilir. Bu tanımlamalardan sonra bir satır boşluk bırakın ve bu 
-  şekilde bu tür tanımlaması onun altındaki tüm metodlara uygulanır.
+  şekilde bu tür tanımlaması onun altındaki tüm metotlara uygulanır.
 
     ```Ruby
     class SomeClass
@@ -1342,7 +1342,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* *beklenmedik durum metodları (contingency methods)* nı kullanarak `begin` bloklarının 
+* *beklenmedik durum metotları (contingency methods)* nı kullanarak `begin` bloklarının 
   çoğalmasını azaltın.
 
     ```Ruby
@@ -1774,10 +1774,10 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * Daha güvenli kod için `ruby -w` şeklinde çalıştırın.
 * İsteğe bağlı parametreler olarak hash yapısı kullanmayın. 
   (Nesne ilklendiricileri bu kural için istisnadır.)
-* 10 satırdan fazla metod kullanmayın. İdeal olarak, metodlar 5 satırdan kısa olmalıdır. 
+* 10 satırdan fazla metot kullanmayın. İdeal olarak, metotlar 5 satırdan kısa olmalıdır. 
   Boşluk bırakılan satırlar bu 5 satır içinde sayılmaz.
 * 3 ya da 4'ten fazla parametre kullanmayın.
-* "global" metodlara gercekten ihtiyacınız varsa, bu metodları çekirdeğe private olarak ekleyin.
+* "global" metotlara gercekten ihtiyacınız varsa, bu metotları çekirdeğe private olarak ekleyin.
 * Modül örnek değişkenlerini global değişkenler yerine kullanın.
 
     ```Ruby
