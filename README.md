@@ -4,22 +4,21 @@ Aşağıdaki maddeler Ruby ile kodlama yapılırken en fazla kullanılan ortak k
 Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.com/bbatsov/ruby-style-guide) ulaşabilirsiniz.
 
 
-## Table of Contents
+## İçindekiler
 
-* [Kaynak Kod Düzeni](#kaynak-kod-düzeni)
-* [Söz Dizimi](#syntax)
-* [Adlandırmalar](#naming)
-* [Comments](#comments)
-    * [Comment Annotations](#comment-annotations)
-* [Classes](#classes--modules)
-* [Exceptions](#exceptions)
-* [Collections](#collections)
-* [Strings](#strings)
-* [Regular Expressions](#regular-expressions)
-* [Percent Literals](#percent-literals)
-* [Metaprogramming](#metaprogramming)
-* [Misc](#misc)
-* [Tools](#tools)
+* [Kaynak Kod Düzeni](#kaynak-kod-dzeni)
+* [Söz Dizimi](#sz-dizimi)
+* [Adlandırmalar](#adlandrmalar)
+* [Yorumlar](#yorumlar)
+    * [Yorum Notları](#yorum-notlar)
+* [Sınıflar](#snflar--modller)
+* [İstisnalar](#stisnalar)
+* [Koleksiyonlar](#koleksiyonlar)
+* [Dizgeler](#dizgeler)
+* [Düzenli İfadeler](#dzenli-fadeler)
+* [Yüzde Kullanımları](#yzde-kullanmlar)
+* [Meta Programlama](#meta-programlama)
+* [Çeşitli Durumlar](#eitli-durumlar)
 
 ## Kaynak Kod Düzeni
 
@@ -955,7 +954,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * Yorum satırlarını güncel tutun. Güncel olmayan yorum satırları hiç yorum olmaması durumundan kötüdür.
 * Yorum satırı yazdığınız için kötü kod yazmayın. Kendi kendini açıklayabilen, anlaşılabilen kodlar yazın.
 
-### Yorum Açıklamaları
+### Yorum Notları
 
 * Açıklamalar genellikle gereken kodun hemen üst satırında olmalıdır.
 * annotation (not) anahtar kelimesini iki nokta üst üste ve bir boşluk takip etmelidir,
@@ -1536,7 +1535,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     # iyi - fetch yapisi KeyError oldugunu anlamamizi saglar
     heroes.fetch(:supermann)
     ```
-## Strings
+## Dizgeler
 
 * Stringleri aralara eklemeler yaparak birleştirmek yerine, bütün halinde yazın:
 
@@ -1606,7 +1605,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-## Regular Expressions
+## Düzenli İfadeler
 
 * Düz metin içerisinde string aramak için düzenli ifadeler kullanmayın:
  `string['text']`
@@ -1622,7 +1621,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 * Karmaşık yapılarda yerine yazma için `sub`/`gsub` yapılarını kullanabilirsiniz.
 
-## Percent Literals
+## Yüzde Kullanımları
 
 * `%()` (`%Q` kısaltmasıdır) birleştirilerek yazılan ve çift tırnak içeren stringler 
   (ikisi bir arada olmalı) için kullanabilirsiniz.
@@ -1698,7 +1697,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     %q{"Test's king!", John said.}
     ```
 
-## Metaprogramming
+## Meta Programlama
 
 * Gereksiz meta program kullanımından kaçının.
 
@@ -1770,7 +1769,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     # best of all, though, would to define_method as each findable attribute is declared
     ```
 
-## Misc
+## Çeşitli Durumlar
 
 * Daha güvenli kod için `ruby -w` şeklinde çalıştırın.
 * İsteğe bağlı parametreler olarak hash yapısı kullanmayın. 
