@@ -1734,41 +1734,6 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
       end
     end
     ```
-
-* Metaprogramming için `method_missing` kullanımından kaçının çünkü geri izleme dağınık olur. 
-  Bu davranış `#metotlar`da listelenmiş değildir, ve yanlış yazılmış metot çağırıları çalışabilir,
-  örneğin `nukes.launch_state = false`. Delege (delegation), vekil (proxy) ya da `define_method` 
-  kullanmayı dikkate alın. Eğer `method_missing` kullanırsanız:
-
-  - [`respond_to_missing?`](http://blog.marc-andre.ca/2010/11/methodmissing-politely.html) tanımladığınızdan emin olun.
-  - Metotları iyi tanımlanmış ön ekleri ile yakalayın, 
-    `find_by_*` gibi -- bu durum mümkün kodunuzu olduğu kadar iddialı yapar. 
-  - İfadenizin sonunda `super` çağırımı yapın.
-  - Delegate to assertive, non-magical methods:
-  - Bir satir eksik
-
-    ```ruby
-    # kotu
-    def method_missing?(meth, *args, &block)
-      if /^find_by_(?<prop>.*)/ =~ meth
-        # ... lots of code to do a find_by
-      else
-        super
-      end
-    end
-
-    # iyi
-    def method_missing?(meth, *args, &block)
-      if /^find_by_(?<prop>.*)/ =~ meth
-        find_by(prop, *args, &block)
-      else
-        super
-      end
-    end
-
-    # best of all, though, would to define_method as each findable attribute is declared
-    ```
-
 ## Çeşitli Durumlar
 
 * Daha güvenli kod için `ruby -w` şeklinde çalıştırın.
