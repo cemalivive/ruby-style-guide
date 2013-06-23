@@ -6,7 +6,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 ## Table of Contents
 
-* [Kaynak Kod Düzeni](#source-code-layout)
+* [Kaynak Kod Düzeni](#kaynak-kod-düzeni)
 * [Söz Dizimi](#syntax)
 * [Adlandırmalar](#naming)
 * [Comments](#comments)
@@ -437,8 +437,8 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     document.saved? || document.save!
     ```
 
-* Cok satırdan oluşan ifadelerde `?:` (üçlü operatör) kullanımını önleyin. 
-  `if/unless` yapısı kullanın bunların yerine.
+* Çok satırdan oluşan ifadelerde `?:` (üçlü operatör) kullanımından kaçının.
+  Bunlarınc yerine `if/unless` yapısı kullanın.
 
 
 * Tek satırdan oluşan `if/unless` ifadesi olduğunda bu ifadeyi değiştirin.
@@ -699,8 +699,8 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     name ||= 'Bozhidar'
     ```
 
-* `||=` ifadesini mantıksal değişkenleri başlatmak için kullanmayın. 
-  (Değişkenin o anki değeri false ise olabilecekleri dikkate alın.)
+* `||=` ifadesini mantıksal değişkenleri başlatmak için kullanmayın
+  (değişkenin o anki değeri false ise olabilecekleri dikkate alın).
     ```Ruby
     # kotu - eger false ise bile true deger ataması yapılır
     enabled ||= true
@@ -865,8 +865,8 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* Sınıf ve modüller için `CamelCase` (ilk harf küçük, diğer kelimlerin baş harfi büyük) 
-  kullanın. (HTTP, RFC, XML gibi kısaltmalardaki büyük harfleri değiştirmeyin.)
+* Sınıf ve modüller için `[CamelCase]` ([kelimlerin baş harfi büyük](http://en.wikipedia.org/wiki/CamelCase))
+  kullanın. (HTTP, RFC, XML gibi kısaltmalardaki büyük harfleri değiştirmeyin)
 
     ```Ruby
     # kotu
@@ -903,14 +903,14 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     ```
 
 * Doğrulama metodlarının (true, false gibi mantıksal değerler döndüren methodlar)
-   isimlerinde soru işareti karaterini kullanıbilirsiniz. (`Array#empty?`)
+  isimlerinde soru işareti karakterini kullanıbilirsiniz. (`Array#empty?`)
 
 
 
 * Define the non-bang (safe) method in terms of the bang (dangerous)
   one if possible.
 
-
+* Çoğunlukla [bang olmayan metod](http://rubylearning.com/satishtalim/writing_own_ruby_methods.html) tanımlamalarını tercih edin.
     ```Ruby
     class Array
       def flatten_once!
@@ -929,47 +929,19 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* When using `reduce` with short blocks, name the arguments `|a, e|`
-  (accumulator, element).
-* When defining binary operators, name the argument `other`(`<<` and
-  `[]` are exceptions to the rule, since their semantics are different).
-
+* `map` + `flatten` yerine `flat_map` kullanın. Bu durum diziler için 2 den fazla derinliğe uygulanmaz.
+  `users.first.songs == ['a', ['b','c']]` kullanıyorsanız, `flat_map` den ziyade `map + flatten` kullanın.
+   
     ```Ruby
-    def +(other)
-      # body omitted
-    end
-    ```
-
-* Prefer `map` over `collect`, `find` over `detect`, `select` over
-  `find_all`, `reduce` over `inject` and `size` over `length`. This is
-  not a hard requirement; if the use of the alias enhances
-  readability, it's ok to use it. The rhyming methods are inherited from
-  Smalltalk and are not common in other programming languages. The
-  reason the use of `select` is encouraged over `find_all` is that it
-  goes together nicely with `reject` and its name is pretty self-explanatory.
-
-* Use `flat_map` instead of `map` + `flatten`.
-  This does not apply for arrays with a depth greater than 2, i.e.
-  if `users.first.songs == ['a', ['b','c']]`, then use `map + flatten` rather than `flat_map`.
-  `flat_map` flattens the array by 1, whereas `flatten` flattens it all the way.
-
-    ```Ruby
-    # bad
+    # kotu
     all_songs = users.map(&:songs).flatten.uniq
 
-    # good
+    # iyi
     all_songs = users.flat_map(&:songs).uniq
     ```
 
 ## Yorumlar
 
-> Good code is its own best documentation. As you're about to add a
-> comment, ask yourself, "How can I improve the code so that this
-> comment isn't needed?" Improve the code and then document it to make
-> it even clearer. <br/>
-> -- Steve McConnell
-
-* Write self-documenting code and ignore the rest of this section. Seriously!
 * Yorumları İngilizce yazın.
 * Yorum satırlarında `#` karakteri ve metin arasında bir boşluk bırakın.
 * Bir kelimeden daha uzun ve noktalalama işaretleri olan yorum satırları yazın. 
@@ -981,21 +953,13 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     counter += 1 # sayac birer birer artar
     ```
 * Yorum satırlarını güncel tutun. Güncel olmayan yorum satırları hiç yorum olmaması durumundan kötüdür.
-
-> Good code is like a good joke - it needs no explanation. <br/>
-> -- Russ Olsen
-
-* Yorum satırı yazdığınız için kötü kod yazmayın. Kendi kendini açıklayabilen anlaşılabilen kodlar yazın.
-* Avoid writing comments to explain bad code. Refactor the code to
-  make it self-explanatory. (Do or do not - there is no try. --Yoda)
+* Yorum satırı yazdığınız için kötü kod yazmayın. Kendi kendini açıklayabilen, anlaşılabilen kodlar yazın.
 
 ### Yorum Açıklamaları
 
 * Açıklamalar genellikle gereken kodun hemen üst satırında olmalıdır.
-* annotation anahtar kelimesini iki nokta üst üste ve bir boşluk takip etmelidir,
-  daha sonra bir not problem tanımlanıyor. 
-* The annotation keyword is followed by a colon and a space, then a note
-  describing the problem.
+* annotation (not) anahtar kelimesini iki nokta üst üste ve bir boşluk takip etmelidir,
+  o zaman bir not problemi açıklıyor.
 * Çoklu satırlar problem tanımlamayı gerektiriyorsa, sonraki satır 
   `#` ifadesinden iki boşluk sonra içerde yazılmalıdır.
 
@@ -1009,9 +973,6 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 * Bu gibi durumlarda problem nerede oluşuyorsa böylece bellidir, bu konuda herhangi bir 
   döküman gereksiz olur. 
-* In cases where the problem is so obvious that any documentation would
-  be redundant, annotations may be left at the end of the offending line
-  with no note. This usage should be the exception and not the rule.
 
     ```Ruby
     def bar
@@ -1022,8 +983,6 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * Sonraki zamanlarda eklemek istediğiniz şeyleri `TODO` notu ile belirtin.
 * Düzeltilmesi gereken yerlere `FIXME` notu bırakın.
 * `OPTIMIZE` notunu ise yavaş ya da verimsiz kodlar (performans problemleri) için kullanabilirsiniz.
-* Use `HACK` to note code smells where questionable coding practices
-  were used and should be refactored away.
 * Tartışmaya açık olabilecek yerler için `HACK` notunu yazabilirsiniz, sonraki zamanlarda 
   o kod yeniden düzenlenilecektir.
 * Çalışmasına yönelik doğrulama için `REVIEW` notunu kullanabilirsiniz.
@@ -1031,8 +990,6 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 * Uygunsa diğer özel açıklama anahtar kelimelerini de kullanabilirsiniz, fakat proje `README` 
   ya da benzer başka bir belgede bunları yazdığınıza emin olun.
-* Use other custom annotation keywords if it feels appropriate, but be
-  sure to document them in your project's `README` or similar.
 
 ## Sınıflar & Modüller
 
@@ -1101,9 +1058,6 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* Favor the use of `module_function` over `extend self` when you want
-  to turn a module's instance methods into class methods.
-
 * Sınıf içinde modülün örnek metodlarını döndürmeyi istediğinizde 
   `extend self` kullanmak yerine `module_function` kullanımını destekleyin.
 
@@ -1139,9 +1093,10 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
   uyduğuna emin olun.
 
 * Sınıfları mümkün olduğu kadar [sağlam nesneye yönelik](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design\)
-   bir biçimde yazmayı deneyin.
-* Always supply a proper `to_s` method for classes that represent
-  domain objects.
+  bir biçimde yazmayı deneyin.
+
+* Sınıflar için uygun `to_s` metotlarını sağlayın. Bu metotlar 
+  alan nesnelerini (domain objects) gösterir.
 
     ```Ruby
     class Person
@@ -1205,12 +1160,13 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ````
 
-* `Struct.new` yapısını genişletmeyin (extend). - zaten `Struct.new` yapısı yeni bir sınıftır. 
-  Genişletme `Struct.new` i gereksiz bir sınıf seviyesinde tanıtır  ve aynı zamanda dosya bir kaç kez isteniyorsa (require)
-  korkunç hatalarda getirebilir
+* `Struct.new` yapısını genişletmeyin (extend). - zaten `Struct.new` yapısı yeni bir 
+  sınıftır. Genişletme `Struct.new` i gereksiz bir sınıf seviyesinde tanıtır ve aynı 
+  zamanda dosya bir kaç kez isteniyorsa (require) korkunç hatalarda getirebilir.
 
 * Daha mantıklı yollarla bir sınıfın örneklerini oluşturmayı
-  faktör metodlarını ekleyerek sağlamayı dikkate alın. 
+  `factory` metodlarını ekleyerek sağlamayı dikkate alın. Factory metotlar için [buradan](http://en.wikipedia.org/wiki/Factory_method)
+  yararlanabilirsiniz.
 
     ```Ruby
     class Person
@@ -1279,27 +1235,16 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     ```
 
     Tüm sınıfları, sınıf hiyerarşisinde gerçekte bir sınıf 
-    değişkeninin paylaşıldığını görebilirsiniz. Sınıf örnek değişkenleri 
-    genelde sadece sınıf değişkenleri üzerinde tercih edilir.
-
-* Assign proper visibility levels to methods (`private`, `protected`)
-in accordance with their intended usage. Don't go off leaving
-everything `public` (which is the default). After all we're coding
-in *Ruby* now, not in *Python*.
+    değişkeninin paylaşıldığını görebilirsiniz. Sınıf örnek 
+    değişkenleri genelde sadece sınıf değişkenleri üzerinde 
+    tercih edilir.
 
 * Uygun görünebilirlik düzeyinde (`private`, `protected`) metodların kullanımlarına 
-  yönelik atamalar yapılır. Emin olamadım.
-
-
-* Indent the `public`, `protected`, and `private` methods as much the
-  method definitions they apply to. Leave one blank line above the
-  visibility modifier
-  and one blank line below in order to emphasize that it applies to all
-  methods below it.
+  yönelik atamalar yapın. Her şeyi `public` olarak kodlamayın.
 
 * public`, `protected`, ve `private metod tanımlamaları bir çok metoda 
   uygulanabilir. Bu tanımlamalardan sonra bir satır boşluk bırakın ve bu 
-  tür tanımlamasından altındaki tüm metodlara uygulanır.
+  şekilde bu tür tanımlaması onun altındaki tüm metodlara uygulanır.
 
     ```Ruby
     class SomeClass
@@ -1319,25 +1264,22 @@ in *Ruby* now, not in *Python*.
     end
     ```
 
-* Use `def self.method` to define singleton methods. This makes the code
-  easier to refactor since the class name is not repeated.
-
 * Tek (singleton) sınıfları tanımlamak için `def self.method` kullanın. 
 
     ```Ruby
     class TestClass
-      # bad
+      # kotu
       def TestClass.some_method
         # body omitted
       end
 
-      # good
+      # iyi
       def self.some_other_method
         # body omitted
       end
 
-      # Also possible and convenient when you
-      # have to define many singleton methods.
+      # ayni zamanda bir çok singleton 
+      # sinif tanimlamaya elverislidir.
       class << self
         def first_method
           # body omitted
@@ -1346,6 +1288,7 @@ in *Ruby* now, not in *Python*.
         def second_method_etc
           # body omitted
         end
+
       end
     end
     ```
@@ -1355,7 +1298,7 @@ in *Ruby* now, not in *Python*.
 * `fail` metodu kullanarak istisnaları (exceptions) yayabilirsiniz. `raise` i sadece 
   istisnayı yakalayacağınız zaman kullanın ve bu sayede istisnayı yeniden yükseltin
   (re-raising exceptions) (çünkü burada hata oluşmuyor ama açıkça ve kasıtlı olarak 
-  istisna çıkartıyorsun)
+  istisna üretilmesi gerçekleştiriliyor)
 
 
     ```Ruby
@@ -1366,16 +1309,10 @@ in *Ruby* now, not in *Python*.
     end
     ```
 
-* Never return from an `ensure` block. If you explicitly return from a
-  method inside an `ensure` block, the return will take precedence over
-  any exception being raised, and the method will return as if no
-  exception had been raised at all. In effect, the exception will be
-  silently thrown away.
-
-* Asla `ensure` bloğundan değer geri döndürmeyin. Açıkça `ensure` bloğu içindeki
-  bir metoddan değer döndürüyorsanız, geri döndürdüğünüz şey herhangi bir istisna üzerinde öncelik 
-  alacaktır, ve metod istisna yoksa geri döndürülecek. 
-
+* `ensure` bloğunu değer geri döndürmek için kullanmayın. `ensure` bloğu 
+  kullanıyorsanız geri döndürdüğünüz değer, herhangi bir istisna yerine öncelik alacaktır,
+  ve eğer metot istisna yoksa bile değer geri döndürecektir. Bu durumda istisna durumu 
+  çöpe atılmış olur. `ensure` bloğu hata oluşsa da, oluşmasa da çalışan bir bloktur.
 
     ```Ruby
     def foo
@@ -1386,8 +1323,6 @@ in *Ruby* now, not in *Python*.
       end
     end
     ```
-
-* Use *implicit begin blocks* where possible.
 * Uygun olan yerlerde *begin* bloklarını kullanın.
 
     ```Ruby
@@ -1410,7 +1345,6 @@ in *Ruby* now, not in *Python*.
 
 * *beklenmedik durum metodları (contingency methods)* nı kullanarak `begin` bloklarının 
   çoğalmasını azaltın.
-
 
     ```Ruby
     # kotu
@@ -1476,14 +1410,11 @@ in *Ruby* now, not in *Python*.
     end
     ```
 
-* Avoid rescuing the `Exception` class.  This will trap signals and calls to
-  `exit`, requiring you to `kill -9` the process.
-
-* Exception` sınıf kurtarımından kaçının. Bu durumda sinyaller yakalanacak 
-  ve `exit` çağırılacak, size gereken ise `kill -9` süreci.
+* Exception` sınıflarında rescue kullanımından kaçının. Çünkü bu durumda sinyaller yakalanacak 
+  ve `exit` çağırılacak, size gereken ise `kill -9` sürecidir.
 
     ```Ruby
-    # bad
+    # kotu
     begin
       # calls to exit and kill signals will be caught (except kill -9)
       exit
@@ -1499,7 +1430,7 @@ in *Ruby* now, not in *Python*.
     rescue => e
       # exception handling
     end
-
+    
     # 
     begin
       # an exception occurs here
@@ -1524,7 +1455,7 @@ in *Ruby* now, not in *Python*.
     end
     ```
 
-## Collections
+## Koleksiyonlar
 
 * Gerekmediği sürece dizi ve hash üretimlerini `.new` yazımıyla yapmayın.
 
@@ -1569,12 +1500,6 @@ in *Ruby* now, not in *Python*.
 * Bir dizinin ilk ya  da en son elemanına erişmek istiyorsanız `[0]` ya da `[-1]` yerine `first` ya da `last
   tercih edin.
 
-* Use `Set` instead of `Array` when dealing with unique elements. `Set`
-  implements a collection of unordered values with no duplicates. This
-  is a hybrid of `Array`'s intuitive inter-operation facilities and
-  `Hash`'s fast lookup.
-
-
 * `Array` yerine `Set` kullanın. `Set` yapısı tuttuğunuz elemanların birden 
    fazla kez yapı içerisinde tutulmasına izin vermez. 
 
@@ -1589,7 +1514,7 @@ in *Ruby* now, not in *Python*.
     ```
 
 * Hash anahtarlaında değiştirilebilir nesneler kullanmaktan kaçının.
-* Hash keyleri sembol olduğunda hash yazımını kullanın.
+* Hash anahtarları sembol olduğunda hash yazımını kullanın.
 
     ```Ruby
     # kotu
@@ -1611,20 +1536,6 @@ in *Ruby* now, not in *Python*.
     # iyi - fetch yapisi KeyError oldugunu anlamamizi saglar
     heroes.fetch(:supermann)
     ```
-* Use `fetch` with second argument to use a default value
-
-   ```Ruby
-   batman = { name: 'Bruce Wayne', is_evil: false }
-
-   # bad - if we just use || operator with falsy value we won't get the expected result
-   batman[:is_evil] || true # => true
-
-   # good - fetch work correctly with falsy values
-   batman.fetch(:is_evil, true) # => false
-   ```
-
-* Rely on the fact that as of Ruby 1.9 hashes are ordered.
-
 ## Strings
 
 * Stringleri aralara eklemeler yaparak birleştirmek yerine, bütün halinde yazın:
@@ -1697,14 +1608,10 @@ in *Ruby* now, not in *Python*.
 
 ## Regular Expressions
 
-> Some people, when confronted with a problem, think
-> "I know, I'll use regular expressions." Now they have two problems.<br/>
-> -- Jamie Zawinski
-
 * Düz metin içerisinde string aramak için düzenli ifadeler kullanmayın:
  `string['text']`
 
-* Basit yapılar için string indexi sayesinde direkt olarak 
+* Basit yapılar için string indeksi sayesinde direkt olarak 
   düzenli ifadeleri kullanabilirsiniz.
 
     ```Ruby
@@ -1716,7 +1623,6 @@ in *Ruby* now, not in *Python*.
 * Karmaşık yapılarda yerine yazma için `sub`/`gsub` yapılarını kullanabilirsiniz.
 
 ## Percent Literals
-
 
 * `%()` (`%Q` kısaltmasıdır) birleştirilerek yazılan ve çift tırnak içeren stringler 
   (ikisi bir arada olmalı) için kullanabilirsiniz.
@@ -1738,10 +1644,8 @@ in *Ruby* now, not in *Python*.
     %(<tr><td class="name">#{name}</td>)
     ```
 
-* Avoid `%q` unless you have a string with both `'` and `"` in
-  it. Regular string literals are more readable and should be
-  preferred unless a lot of characters would have to be escaped in
-  them.
+* Bir stringde `'` ve `"` karakterlerine aynı anda sahip olmadıkça `%q`
+  kullanımından kaçının. 
 
     ```Ruby
     # bad
@@ -1755,7 +1659,6 @@ in *Ruby* now, not in *Python*.
     question = '"What did you say?"'
     ```
 
-* Use `%r` only for regular expressions matching *more than* one '/' character.
 * '/' karakteriyle çok fazla eşleşme gerektiren işlem yaptırıyorsanız `%r` kullanın.
 
     ```Ruby
@@ -1770,8 +1673,8 @@ in *Ruby* now, not in *Python*.
     %r(^/blog/2011/(.*)$)
     ```
 
-* Bir komutun içerisinde ter tırnakla bir şey çağırmanız gerekmediği sürece 
-  `%x` kullanmayın (genelde alışılmadık bir durum)
+* Bir komutun içerisinde ters tırnakla bir şey çağırmanız gerekmediği sürece 
+  `%x` kullanmayın (genelde alışılmadık bir durum).
 
     ```Ruby
     # kotu
@@ -1781,11 +1684,6 @@ in *Ruby* now, not in *Python*.
     date = `date`
     echo = %x(echo `date`)
     ```
-
-* Prefer `()` as delimiters for all `%` literals, except `%r`. Given
-  the nature of regexp in many scenarios a less command character than
-  `(` might be a better choice for a delimiter.
-
 
 * `%r` dışında tüm `%` yazımlar için ayırıcı olarak `()` kullanımını tercih edin. 
   Düzenli ifadelerin doğası gereği bir çok durumda `(` kullanımı daha iyidir.
@@ -1804,12 +1702,12 @@ in *Ruby* now, not in *Python*.
 
 * Gereksiz meta program kullanımından kaçının.
 
-* Do not mess around in core classes when writing libraries.
-  (Do not monkey-patch them.)
+* Kütüphane yazarken çevresinde karışıklık yapmayın. 
+  ([monkey-patch](http://en.wikipedia.org/wiki/Monkey_patch) yapmaktan kaçının)
 
-* `class_eval` blok biçimlerinde araya string katarak tercih edebilirsiniz.
-* The block form of `class_eval` is preferable to the string-interpolated form.
-  - when you use the string-interpolated form, always supply `__FILE__` and `__LINE__`, so that your backtraces make sense:
+* `class_eval` blok biçimlerini araya string katarak tercih edebilirsiniz.
+  - araya string katılmış biçimini kullandığınızda, genellikle `__FILE__` ve `__LINE__`sağlanır, 
+    bu yüzden geri izleme  mantıklıdır:
 
     ```ruby
     class_eval 'def use_relative_model_naming?; true; end', __FILE__, __LINE__
@@ -1817,7 +1715,8 @@ in *Ruby* now, not in *Python*.
 
   - `define_method` is preferable to `class_eval{ def ... }`
 
-* When using `class_eval` (or other `eval`) with string interpolation, add a comment block showing its appearance if interpolated (a practice I learned from the Rails code):
+* `class_eval` (ya da diğer hesaplatıcıları) ile dizgeleri kullanırken, onun görünümünü gösteren 
+  yorum blokları ekleyin:
 
     ```ruby
     # from activesupport/lib/active_support/core_ext/string/output_safety.rb
@@ -1837,15 +1736,20 @@ in *Ruby* now, not in *Python*.
     end
     ```
 
-* Avoid using `method_missing` for metaprogramming because backtraces become messy, the behavior is not listed in `#methods`, and misspelled method calls might silently work, e.g. `nukes.launch_state = false`. Consider using delegation, proxy, or `define_method` instead. If you must use `method_missing`:
+* Metaprogramming için `method_missing` kullanımından kaçının çünkü geri izleme dağınık olur. 
+  Bu davranış `#metotlar`da listelenmiş değildir, ve yanlış yazılmış metot çağırıları çalışabilir,
+  örneğin `nukes.launch_state = false`. Delege (delegation), vekil (proxy) ya da `define_method` 
+  kullanmayı dikkate alın. Eğer `method_missing` kullanırsanız:
 
-  - Be sure to [also define `respond_to_missing?`](http://blog.marc-andre.ca/2010/11/methodmissing-politely.html)
-  - Only catch methods with a well-defined prefix, such as `find_by_*` -- make your code as assertive as possible.
-  - Call `super` at the end of your statement
+  - [`respond_to_missing?`](http://blog.marc-andre.ca/2010/11/methodmissing-politely.html) tanımladığınızdan emin olun.
+  - Metotları iyi tanımlanmış ön ekleri ile yakalayın, 
+    `find_by_*` gibi -- bu durum mümkün kodunuzu olduğu kadar iddialı yapar. 
+  - İfadenizin sonunda `super` çağırımı yapın.
   - Delegate to assertive, non-magical methods:
+  - Bir satir eksik
 
     ```ruby
-    # bad
+    # kotu
     def method_missing?(meth, *args, &block)
       if /^find_by_(?<prop>.*)/ =~ meth
         # ... lots of code to do a find_by
@@ -1854,7 +1758,7 @@ in *Ruby* now, not in *Python*.
       end
     end
 
-    # good
+    # iyi
     def method_missing?(meth, *args, &block)
       if /^find_by_(?<prop>.*)/ =~ meth
         find_by(prop, *args, &block)
@@ -1869,18 +1773,12 @@ in *Ruby* now, not in *Python*.
 ## Misc
 
 * Daha güvenli kod için `ruby -w` şeklinde çalıştırın.
-* İsteğe bağlı parametreler olarak hash yapısı kullanmayın. (Nesne ilklendiricileri bu kural için istisnadır.)
-* Avoid hashes as optional parameters. Does the method do too much? (Object initializers are exceptions for this rule).
-* Avoid methods longer than 10 LOC (lines of code). Ideally, most methods will be shorter than
-  5 LOC. Empty lines do not contribute to the relevant LOC.
+* İsteğe bağlı parametreler olarak hash yapısı kullanmayın. 
+  (Nesne ilklendiricileri bu kural için istisnadır.)
 * 10 satırdan fazla metod kullanmayın. İdeal olarak, metodlar 5 satırdan kısa olmalıdır. 
-  Boşluk bırakılan satırlar kod yazılmış olarak sayılmaz.
-* Avoid parameter lists longer than three or four parameters.
+  Boşluk bırakılan satırlar bu 5 satır içinde sayılmaz.
 * 3 ya da 4'ten fazla parametre kullanmayın.
-* If you really need "global" methods, add them to Kernel
-  and make them private.
 * "global" metodlara gercekten ihtiyacınız varsa, bu metodları çekirdeğe private olarak ekleyin.
-* Use module instance variables instead of global variables.
 * Modül örnek değişkenlerini global değişkenler yerine kullanın.
 
     ```Ruby
@@ -1897,59 +1795,14 @@ in *Ruby* now, not in *Python*.
     Foo.bar = 1
     ```
 
-* Avoid `alias` when `alias_method` will do.
 * `alias_method` kullanacağınız zaman `alias` kullanmayın.
-* Use `OptionParser` for parsing complex command line options and
-`ruby -s` for trivial command line options.
 * Karmaşık komut satırı seçeneklerinde `OptionParser` kullanın ve önemsiz 
   komut satırı seçenekleri için `ruby -s` kullanın.
-* Code in a functional way, avoiding mutation when that makes sense.
-* Do not mutate arguments unless that is the purpose of the method.
-* Avoid more than three levels of block nesting.
 * Üçten fazla iç içe blok kullanımından kaçının.
-* Be consistent. In an ideal world, be consistent with these guidelines.
-* Use common sense.
-
-## Tools
-
-Here's some tools to help you automatically check Ruby code against
-this guide.
-
-### RuboCop
-
-[RuboCop](https://github.com/bbatsov/rubocop) is a Ruby code style
-checker based on this style guide. RuboCop already covers a
-significant portion of the Guide, supports both MRI 1.9 and MRI 2.0
-and has good Emacs integration.
-
-### RubyMine
-
-[RubyMine](http://www.jetbrains.com/ruby/)'s code inspections are
-[partially based](http://confluence.jetbrains.com/display/RUBYDEV/RubyMine+Inspections)
-on this guide.
-
-# Contributing
-
-Nothing written in this guide is set in stone. It's my desire to work
-together with everyone interested in Ruby coding style, so that we could
-ultimately create a resource that will be beneficial to the entire Ruby
-community.
-
-Feel free to open tickets or send pull requests with improvements. Thanks in
-advance for your help!
 
 # License
 
-![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
-This work is licensed under a [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.en_US)
+![Creative Commons Lisansı](http://i.creativecommons.org/l/by/3.0/88x31.png)
+Bu belge [Creative Commons 3.0](http://creativecommons.org/licenses/by/3.0/deed.en_US) ile lisanlanmıştır.
 
-# Spread the Word
 
-A community-driven style guide is of little use to a community that
-doesn't know about its existence. Tweet about the guide, share it with
-your friends and colleagues. Every comment, suggestion or opinion we
-get makes the guide just a little bit better. And we want to have the
-best possible guide, don't we?
-
-Cheers,<br/>
-[Bozhidar](https://twitter.com/bbatsov)
