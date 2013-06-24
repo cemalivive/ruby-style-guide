@@ -2,7 +2,7 @@
 
 Aşağıdaki maddeler Ruby ile kodlama yapılırken en fazla kullanılan ortak kurallardır.
 Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.com/bbatsov/ruby-style-guide) ulaşabilirsiniz.
-
+Bu yazı belgenin bire bir çevirisi değildir. Belgede geçen hiç uygulamadığım yerleri buraya eklemedim.
 
 ## İçindekiler
 
@@ -256,7 +256,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 * Uygulama dökümanı için RDoc kullanılmalı. Yorum satırları ve `def`
    arasına boş satır koyulmamalı.
-* Satır sınıırı 80 karakterdir.
+* Satır sınırı 80 karakterdir.
 * Gereksiz boşlukların oluşması engellenmeli.
 * Blok şeklindeki yorum satırları kullanılmamalı.
 
@@ -313,7 +313,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
      end
      ```
 
-* Tam olarak neden olduğunu bilmeden `for` yapısı kullanımamalı. `for` yerine pek çok zaman iteratörler kullanılır.
+* Tam olarak neden olduğunu bilmeden `for` yapısı kullanılmamalı. `for` yerine pek çok zaman iteratörler kullanılır.
   `for` yapısı `each` ile sağlanmıştır.
 
     ```Ruby
@@ -359,7 +359,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* `if/then/else/end` yerine  üçlü operatorler(`?:`) daha iyidir.
+* `if/then/else/end` yerine  üçlü operatorler (`?:`) daha iyidir.
 
     ```Ruby
     # kotu
@@ -617,7 +617,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     ```
 
 * `self` gerekli değilse kullanmayın. (`self` sadece kendi tanımladığımız 
-   erişimciler (accessor) için gereklidir.)
+   erişimciler (accessors) için gereklidir.)
 
     ```Ruby
     # kotu
@@ -1104,7 +1104,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
       end
     end
     ```
-* Erişimcileri (accessors) tanımlak için `attr` ailesinin fonksiyonlarını kullanın.
+* Erişimcileri tanımlak için `attr` ailesinin fonksiyonlarını kullanın.
 
     ```Ruby
     # kotu
@@ -1234,7 +1234,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * Uygun görünebilirlik düzeyinde (`private`, `protected`) metotların kullanımlarına 
   yönelik atamalar yapın. Her şeyi `public` olarak kodlamayın.
 
-* `public`, `protected`, ve `private metot tanımlamaları bir çok metoda 
+* `public`, `protected`, ve `private` metot tanımlamaları bir çok metoda 
   uygulanabilir. Bu tanımlamalardan sonra bir satır boşluk bırakın ve bu 
   şekilde bu tür tanımlaması onun altındaki tüm metotlara uygulansın.
 
