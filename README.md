@@ -2,7 +2,7 @@
 
 Aşağıdaki maddeler Ruby ile kodlama yapılırken en fazla kullanılan ortak kurallardır.
 Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.com/bbatsov/ruby-style-guide) ulaşabilirsiniz.
-Bu yazı belgenin bire bir çevirisi değildir. Belgede geçen hiç uygulamadığım yerleri buraya eklemedim.
+Bu yazı belgenin bire bir çevirisi değildir. Belgenin orjinalinde geçen hiç uygulamadığım yerleri buraya eklemedim.
 
 ## İçindekiler
 
