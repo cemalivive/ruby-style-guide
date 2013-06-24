@@ -42,7 +42,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
     puts 'foo', 'bar' # bu bicim ozellikle puts ifadesinde kullanilir
     ```
-* Gövdesiz sınıf tanımlaması için tek satırlık tanımlamaları tercih edilmeli.
+* Gövdesiz sınıf tanımlaması için tek satırlık tanımlamalar tercih edilmeli.
 
     ```Ruby
     # kotu
@@ -108,10 +108,10 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     `{` ve `}` kullanımında hash tanımlamaları için boşluklar asağıdaki gibi olabilir:
 
     ```Ruby
-    # iyi -  { sonrasinda bosluk ve } oncesinde bosluk
+    # iyi  
     { one: 1, two: 2 }
 
-    # good - { sonrasın ve } oncesinde bosluk yok
+    # iyi 
     {one: 1, two: 2}
     ```
 
@@ -184,13 +184,11 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     ```
     Bir kaç Ruby kitabında ilk biçim önerilirken, ikinci biçim okunabilirlik bakımından daha çok tercih edilebilir.
 
-* Avoid line continuation `\` where not required. In practice, avoid using
-  line continuations at all.
 * Satır devam etmesi gerekli olmayan yerde `\` ile önlenir. Aşağıdaki örneklerin 
   hepsinde `\` kullanılarak önlenmiştir.
 
     ```Ruby
-    # bad
+    # iyi
     result = 1 - \
              2
 
@@ -219,7 +217,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
       Mailer.deliver(to: 'bob@example.com', from: 'us@example.com', subject: 'Important message', body: source.text)
     end
 
-    # kotu (noral girinti)
+    # kotu (normal girinti)
     def send_mail(source)
       Mailer.deliver(
         to: 'bob@example.com',
@@ -258,7 +256,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 * Uygulama dökümanı için RDoc kullanılmalı. Yorum satırları ve `def`
    arasına boş satır koyulmamalı.
-* Satir sınıırı 80 karakterdir.
+* Satır sınıırı 80 karakterdir.
 * Gereksiz boşlukların oluşması engellenmeli.
 * Blok şeklindeki yorum satırları kullanılmamalı.
 
@@ -277,7 +275,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 ## Söz Dizimi
 
 * `::` ifadesi sadece sabitlere başvurularda kullanılmalı (bu durum sınıfları
-  ve modülleri içerir). Method çağırımları için asla `::` kullanılmamalı.
+  ve modülleri içerir). Metot çağırımları için asla `::` kullanılmamalı.
 
     ```Ruby
     # kotu
@@ -290,7 +288,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     SomeModule::SomeClass::SOME_CONST
     ```
 
-* `def` parametreler varsa parantezlerle birlikte kullanılmalı. Methodda parametreler yoksa 
+* `def` parametreler varsa parantezlerle birlikte kullanılmalı. Metotta parametreler yoksa 
   parantez kullanımını atlayabilirsiniz.
 
      ```Ruby
@@ -437,7 +435,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     ```
 
 * Çok satırdan oluşan ifadelerde `?:` (üçlü operatör) kullanımından kaçının.
-  Bunlarınc yerine `if/unless` yapısı kullanın.
+  Bunların yerine `if/unless` yapısı kullanın.
 
 
 * Tek satırdan oluşan `if/unless` ifadesi olduğunda bu ifadeyi değiştirin.
@@ -708,7 +706,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     enabled = true if enabled.nil?
     ```
 
-* Method ismi ve parantez açma ifadesinin arasına boşluk koymayın.
+* Metot ismi ve parantez açma ifadesinin arasına boşluk koymayın.
 
     ```Ruby
     # kotu
@@ -864,7 +862,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* Sınıf ve modüller için `[CamelCase]` ([kelimlerin baş harfi büyük](http://en.wikipedia.org/wiki/CamelCase))
+* Sınıf ve modüller için `[CamelCase]` ([kelimelerin baş harfi büyük](http://en.wikipedia.org/wiki/CamelCase))
   kullanın. (HTTP, RFC, XML gibi kısaltmalardaki büyük harfleri değiştirmeyin)
 
     ```Ruby
@@ -903,11 +901,6 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 * Doğrulama metotlarının (true, false gibi mantıksal değerler döndüren metotlar)
   isimlerinde soru işareti karakterini kullanıbilirsiniz. (`Array#empty?`)
-
-
-
-* Define the non-bang (safe) method in terms of the bang (dangerous)
-  one if possible.
 
 * Çoğunlukla [bang olmayan metot](http://rubylearning.com/satishtalim/writing_own_ruby_methods.html) tanımlamalarını tercih edin.
     ```Ruby
@@ -957,7 +950,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 ### Yorum Notları
 
 * Açıklamalar genellikle gereken kodun hemen üst satırında olmalıdır.
-* annotation (not) anahtar kelimesini iki nokta üst üste ve bir boşluk takip etmelidir,
+* Not anahtar kelimesini iki nokta üst üste ve bir boşluk takip etmelidir,
   o zaman bir not problemi açıklıyor.
 * Çoklu satırlar problem tanımlamayı gerektiriyorsa, sonraki satır 
   `#` ifadesinden iki boşluk sonra içerde yazılmalıdır.
@@ -1091,7 +1084,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * Sınıf hiyerarşilerini tasarlarken [Liskov Substitution İlkelerine] (http://en.wikipedia.org/wiki/Liskov_substitution_principle)
   uyduğuna emin olun.
 
-* Sınıfları mümkün olduğu kadar [sağlam nesneye yönelik](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design\)
+* Sınıfları mümkün olduğu kadar [sağlam nesneye yönelik] (http://en.wikipedia.org/wiki/SOLID_(object-oriented_design) 
   bir biçimde yazmayı deneyin.
 
 * Sınıflar için uygun `to_s` metotlarını sağlayın. Bu metotlar 
@@ -1141,7 +1134,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* Erişimcileri tanımlamak için `Struct.new` kullanımınıda dikkate alabilirsiniz. 
+* Erişimcileri tanımlamak için `Struct.new` kullanımını da dikkate alabilirsiniz. 
 
     ```Ruby
     # iyi
@@ -1161,7 +1154,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 * `Struct.new` yapısını genişletmeyin (extend). - zaten `Struct.new` yapısı yeni bir 
   sınıftır. Genişletme `Struct.new` i gereksiz bir sınıf seviyesinde tanıtır ve aynı 
-  zamanda dosya bir kaç kez isteniyorsa (require) korkunç hatalarda getirebilir.
+  zamanda dosya bir kaç kez isteniyorsa (require) hatalar da meydana gelebilir.
 
 * Daha mantıklı yollarla bir sınıfın örneklerini oluşturmayı
   `factory` metotlarını ekleyerek sağlamayı dikkate alın. Factory metotlar için [buradan](http://en.wikipedia.org/wiki/Factory_method)
@@ -1233,17 +1226,17 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     Parent.print_class_var # => will print "child"
     ```
 
-    Tüm sınıfları, sınıf hiyerarşisinde gerçekte bir sınıf 
-    değişkeninin paylaşıldığını görebilirsiniz. Sınıf örnek 
+    Tüm sınıfların, sınıf hiyerarşisinde gerçekte bir sınıf 
+    değişkenini paylaştığını görebilirsiniz. Sınıf örnek 
     değişkenleri genelde sadece sınıf değişkenleri üzerinde 
     tercih edilir.
 
 * Uygun görünebilirlik düzeyinde (`private`, `protected`) metotların kullanımlarına 
   yönelik atamalar yapın. Her şeyi `public` olarak kodlamayın.
 
-* public`, `protected`, ve `private metot tanımlamaları bir çok metoda 
+* `public`, `protected`, ve `private metot tanımlamaları bir çok metoda 
   uygulanabilir. Bu tanımlamalardan sonra bir satır boşluk bırakın ve bu 
-  şekilde bu tür tanımlaması onun altındaki tüm metotlara uygulanır.
+  şekilde bu tür tanımlaması onun altındaki tüm metotlara uygulansın.
 
     ```Ruby
     class SomeClass
@@ -1342,7 +1335,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* *beklenmedik durum metotları (contingency methods)* nı kullanarak `begin` bloklarının 
+* *Beklenmedik durum metotlarını (contingency methods)* kullanarak `begin` bloklarının 
   çoğalmasını azaltın.
 
     ```Ruby
@@ -1387,7 +1380,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * `rescue` içinde onun niteleyici özelliklerini kullanmaktan kaçının.
 
     ```Ruby
-    # bad - this catches all StandardError exceptions
+    # kotu - bu catch tum hatalari yakalar
     do_something rescue nil
     ```
 
@@ -1409,7 +1402,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     end
     ```
 
-* Exception` sınıflarında rescue kullanımından kaçının. Çünkü bu durumda sinyaller yakalanacak 
+* `Exception` sınıflarında rescue kullanımından kaçının. Çünkü bu durumda sinyaller yakalanacak 
   ve `exit` çağırılacak, size gereken ise `kill -9` sürecidir.
 
     ```Ruby
@@ -1440,8 +1433,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
     ```
 
-* Dış kaynaklardan elde ettiklerinizi programdan çıkarırken `ensure`
-  bloğunu kullanın.
+* Dış kaynaklardan elde ettiklerinizi `ensure` bloğunda çıkarın.
 
     ```Ruby
     f = File.open('testfile')
@@ -1496,13 +1488,13 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     arr[100] = 1 # now you have an array with lots of nils
     ```
 
-* Bir dizinin ilk ya  da en son elemanına erişmek istiyorsanız `[0]` ya da `[-1]` yerine `first` ya da `last
+* Bir dizinin ilk ya  da en son elemanına erişmek istiyorsanız `[0]` ya da `[-1]` yerine `first` ya da `last`
   tercih edin.
 
 * `Array` yerine `Set` kullanın. `Set` yapısı tuttuğunuz elemanların birden 
    fazla kez yapı içerisinde tutulmasına izin vermez. 
 
-* Hash anahtarlarında stringler yerine sembolleri tercih edin.
+* Hash anahtarlarında dizgeler yerine sembolleri tercih edin.
 
     ```Ruby
     # kotu
@@ -1523,8 +1515,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     hash = { one: 1, two: 2, three: 3 }
     ```
 
-* Hash elemanlarını hash anahtarları görünebilir olduğunda `fetch` 
-  kullanarak elde edin.
+* Hash elemanlarına hash anahtalarını görerek erişiyorsanız `fetch` yapısını kullanın.
 
     ```Ruby
     heroes = { batman: 'Bruce Wayne', superman: 'Clark Kent' }
@@ -1537,7 +1528,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     ```
 ## Dizgeler
 
-* Stringleri aralara eklemeler yaparak birleştirmek yerine, bütün halinde yazın:
+* Dizgeleri aralara eklemeler yaparak birleştirmek yerine, bütün halinde yazın:
 
     ```Ruby
     # kotu
@@ -1547,7 +1538,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     email_with_name = "#{user.name} <#{user.email}>"
     ```
 
-* Stringlerin arasına boşluk bırakmaya dikkat edin.
+* Dizgelerin arasına boşluk bırakmaya dikkat edin.
 
     ```Ruby
     "#{ user.last_name }, #{ user.first_name }"
@@ -1556,10 +1547,10 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * Çift tırnak yerine `\t`, `\n`, `'` gibi özel sembollere ihtiyacınız olmadğında
   tek tırnak kullanın.
     ```Ruby
-    # bad
+    # kotu
     name = "Bozhidar"
 
-    # good
+    # iyi
     name = 'Bozhidar'
     ```
 
@@ -1592,7 +1583,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     # iyi
     puts "$global = #{$global}"
     ```
-* Değişen büyük string parçalarını `String#+` şeklinde birleştirmek yerine 
+* Değişen büyük dizge parçalarını `String#+` şeklinde birleştirmek yerine 
   `String#<<` yapısını kullanın.
 
     ```Ruby
@@ -1607,10 +1598,10 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 ## Düzenli İfadeler
 
-* Düz metin içerisinde string aramak için düzenli ifadeler kullanmayın:
+* Düz metin içerisinde dizge aramak için düzenli ifadeler kullanmayın:
  `string['text']`
 
-* Basit yapılar için string indeksi sayesinde direkt olarak 
+* Basit yapılar için dizge indeksi sayesinde direkt olarak 
   düzenli ifadeleri kullanabilirsiniz.
 
     ```Ruby
@@ -1623,7 +1614,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 
 ## Yüzde Kullanımları
 
-* `%()` (`%Q` kısaltmasıdır) birleştirilerek yazılan ve çift tırnak içeren stringler 
+* `%()` (`%Q` kısaltmasıdır) birleştirilerek yazılan ve çift tırnak içeren dizgeler 
   (ikisi bir arada olmalı) için kullanabilirsiniz.
 
     ```Ruby
@@ -1643,22 +1634,22 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
     %(<tr><td class="name">#{name}</td>)
     ```
 
-* Bir stringde `'` ve `"` karakterlerine aynı anda sahip olmadıkça `%q`
+* Bir dizgede `'` ve `"` karakterlerine aynı anda sahip olmadıkça `%q`
   kullanımından kaçının. 
 
     ```Ruby
-    # bad
+    # kotu
     name = %q(Bruce Wayne)
     time = %q(8 o'clock)
     question = %q("What did you say?")
 
-    # good
+    # iyi
     name = 'Bruce Wayne'
     time = "8 o'clock"
     question = '"What did you say?"'
     ```
 
-* '/' karakteriyle çok fazla eşleşme gerektiren işlem yaptırıyorsanız `%r` kullanın.
+* `/` karakteriyle çok fazla eşleşme gerektiren işlem yaptırıyorsanız `%r` kullanın.
 
     ```Ruby
     # kotu
@@ -1704,15 +1695,15 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * Kütüphane yazarken çevresinde karışıklık yapmayın. 
   ([monkey-patch](http://en.wikipedia.org/wiki/Monkey_patch) yapmaktan kaçının)
 
-* `class_eval` blok biçimlerini araya string katarak tercih edebilirsiniz.
-  - araya string katılmış biçimini kullandığınızda, genellikle `__FILE__` ve `__LINE__`sağlanır, 
-    bu yüzden geri izleme  mantıklıdır:
+* `class_eval` blok biçimlerini araya dizge katarak tercih edebilirsiniz.
+  - araya dizge katılmış biçimini kullandığınızda, genellikle `__FILE__` ve `__LINE__`sağlanır, 
+    bu yüzden geri izlemeniz  mantıklıdır:
 
     ```ruby
     class_eval 'def use_relative_model_naming?; true; end', __FILE__, __LINE__
     ```
 
-  - `define_method` is preferable to `class_eval{ def ... }`
+  - `define_method`, `class_eval{ def ... }` e tercih edilebilir
 
 * `class_eval` (ya da diğer hesaplatıcıları) ile dizgeleri kullanırken, onun görünümünü gösteren 
   yorum blokları ekleyin:
@@ -1742,7 +1733,7 @@ Ancak resmi bir belge değildir. Belgenin orjinaline [buradan](https://github.co
 * 10 satırdan fazla metot kullanmayın. İdeal olarak, metotlar 5 satırdan kısa olmalıdır. 
   Boşluk bırakılan satırlar bu 5 satır içinde sayılmaz.
 * 3 ya da 4'ten fazla parametre kullanmayın.
-* "global" metotlara gercekten ihtiyacınız varsa, bu metotları çekirdeğe private olarak ekleyin.
+* "global" metotlara gerçekten ihtiyacınız varsa, bu metotları çekirdeğe private olarak ekleyin.
 * Modül örnek değişkenlerini global değişkenler yerine kullanın.
 
     ```Ruby
